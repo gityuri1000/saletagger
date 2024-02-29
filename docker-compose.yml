@@ -4,5 +4,19 @@ services:
   
   bot:
     build: .
+    network_mode: "host"
+    container_name: telegram_bot
+    depends_on:
+      - db
 
   db:
+    image: postgres:12.18-alpine3.18
+    container_name: postgres-py
+    restart: always
+    ports:
+      - "8001:5432"
+    shm_size: 128mb
+    environment:
+      - POSTGRES_USER: docker_user
+      - POSTGRES_PASSWORD: 123123
+      - POSTGRES_DB: docker_db
