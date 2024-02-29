@@ -23,6 +23,7 @@ class AddedItem(Base):
     id = mapped_column(Integer, primary_key=True)
     user_name = mapped_column(String(255), nullable=False)
     item_url = mapped_column(String(255), nullable=False)
+    store = mapped_column(String(255), nullable=False)
 
 # Initialize tables if does not exist
 # from database_engine import async_engine

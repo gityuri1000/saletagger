@@ -20,21 +20,19 @@ class BaseParser:
         # print('Write your parser code in this method with dict return')
         return test_initial_add_list
 
-    def update_data_in_parsed_items_table(self):
+    def update_data_in_parsed_items_table(self) -> None:
         parsed_data = self.get_data_from_web_site()
         asyncio.run(update_parsed_item_table(parsed_data))
 
-
-    def add_data_to_added_users_item_table(self, data_from_bot):
-        set_data_to_added_users_item_table(data_from_bot)
+    def add_data_to_added_users_item_table(self, data_from_bot) -> None:
+        asyncio.run(set_data_to_added_users_item_table(data_from_bot))
 
 
 # data_to_added_users_item_table = {users}
 
-test = BaseParser()
 # test.add_data_to_added_users_item_table(test_dict)
 # test.add_initial_data_to_parsed_items_table()
-test.update_data_in_parsed_items_table()
+
     
         
 

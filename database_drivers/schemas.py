@@ -65,8 +65,6 @@ async def activate_rows_in_parsed_item_table(session: AsyncSession ,current_tabl
 
             await session.execute(stmt)
 
-
-
 async def update_parsed_item_table(new_table_data: List[dict]) -> None:
     async with AsyncSession(async_engine) as current_session:
         current_table = await get_query_from_parsed_item_table()
@@ -102,20 +100,43 @@ async def set_data_to_added_users_item_table(data: dict) -> None:
     async with AsyncSession(async_engine) as session:
         added_item = AddedItem(
             user_name = data['user_name'],
-            item_url = data['item_url']
+            item_url = data['item_url'],
+            store = data['store']
         )
 
-        await session.add(added_item)
+        session.add(added_item)
         await session.commit()
 
-# def get_query_from_added_users_item_table() -> List[dict]:
-#     rows = select(AddedItem)
-#     result = []
-#     with Session(engine) as current_session:
+async def get_query_from_added_users_item_table() -> List[dict]:
+    result = []
+    async with AsyncSession(async_engine) as current_session:
+        rows = select(AddedItem)
 
-#         for row in current_session.scalars(rows):
-#             row.__dict__.pop('_sa_instance_state')
-#             result.append(row.__dict__)
+        for row in await current_session.scalars(rows):
+            row.__dict__.pop('_sa_instance_state')
+            result.append(row.__dict__)
 
-#     return result
+    return result
+
+async def get_query_from_added_users_item_table_with_username(username: str) -> List[dict]:
+    result = []
+    async with AsyncSession(async_engine) as current_session:
+        rows = select(AddedItem)
+
+        for row in await current_session.scalars(rows):
+            if row.__dict__['user_name'] == username:
+                row.__dict__.pop('_sa_instance_state')
+                result.append(row.__dict__)
+
+    return result
+
+async def delete_row_from_added_users_item_table(user_name: str, item_url: str, store: str) -> None:
+    async with AsyncSession(async_engine) as current_session:
+        statement = select(AddedItem).filter_by(user_name=user_name, item_url=item_url, store=store)
+        objs_to_delete = await current_session.scalars(statement)
+        for obj_to_delete in objs_to_delete:
+            await current_session.delete(obj_to_delete)
+        await current_session.commit()
+        
+
     
