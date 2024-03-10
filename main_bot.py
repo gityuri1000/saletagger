@@ -1,15 +1,15 @@
 import requests
 import logging
-import html
 from typing import List, Dict, Tuple
 from html.parser import HTMLParser
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ContextTypes, Application, CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler, filters
 from telegram.constants import ParseMode
-from database_drivers.schemas import set_data_to_added_users_item_table
-from database_drivers.schemas import get_query_from_added_users_item_table
-from database_drivers.schemas import get_query_from_added_users_item_table_with_username
-from database_drivers.schemas import delete_row_from_added_users_item_table
+from database_drivers.cruds import set_data_to_added_users_item_table
+from database_drivers.cruds import get_query_from_added_users_item_table
+from database_drivers.cruds import get_query_from_added_users_item_table_with_username
+from database_drivers.cruds import delete_row_from_added_users_item_table
+from database_drivers.database_engine import SessionLocal
 
 TOKEN = '6527820749:AAG1xmOjyVtGjsaGlGLu0TBCzXJgAzhdQbM'
 
@@ -77,7 +77,7 @@ async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str
 
     """
     
-    database_data = await get_query_from_added_users_item_table_with_username(username)
+    database_data = await get_query_from_added_users_item_table_with_username(SessionLocal, username)
 
     counter = 0
     data_list = []
@@ -91,7 +91,7 @@ async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str
                 "id": counter, 
                 "user_name": database_row["user_name"], 
                 "item_url": database_row["item_url"], 
-                "store": database_row["store"]
+                "shop": database_row["shop"]
             }
         )
 
@@ -158,9 +158,9 @@ async def delete_item_in_delete_menu(update: Update, context: ContextTypes.DEFAU
     if 0 < int(update.message.text) <= len(context.user_data["current_user_list_of_items"]):
         user_name = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["user_name"]
         item_url = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["item_url"]
-        store = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["store"]
+        shop = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["shop"]
 
-        await delete_row_from_added_users_item_table(user_name, item_url, store)
+        await delete_row_from_added_users_item_table(SessionLocal, user_name, item_url, shop)
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Вещь удалена из списка')
 
     else:
@@ -199,7 +199,7 @@ async def show_add_item_menu(update: Update, context: ContextTypes.DEFAULT_TYPE)
                 InlineKeyboardButton('Street Beat', callback_data='Street Beat'),
             ],
             [
-                InlineKeyboardButton('OSKELLY', callback_data='OSKELLY'),
+                InlineKeyboardButton('Red September', callback_data='Red September'),
                 InlineKeyboardButton('SuperStep', callback_data='SuperStep'),
             ],
             [
@@ -236,15 +236,16 @@ async def add_item_in_add_item_menu(update: Update, context: ContextTypes.DEFAUL
 
     """
     
-    current_table = await get_query_from_added_users_item_table()
+    current_table = await get_query_from_added_users_item_table(SessionLocal)
     for row in current_table:
         row.pop('id')
 
-    data_to_add = {'user_name': update.message.from_user.username, 'item_url': update.message.text, 'store': context.user_data['current_store_name']}
+    data_to_add = {'user_name': update.message.from_user.username, 'item_url': update.message.text, 'shop': context.user_data['current_shop_name']}
 
     if data_to_add not in current_table:
+        await set_data_to_added_users_item_table(SessionLocal, data=data_to_add)
+
         await context.bot.send_message(text='Вещь добавлена', chat_id=update.effective_message.chat_id)
-        await set_data_to_added_users_item_table(data=data_to_add)
     else:
         await context.bot.send_message(text='Вещь уже в списке', chat_id=update.effective_message.chat_id)
 
@@ -296,7 +297,7 @@ async def show_store_menu_in_add_item_menu(update: Update, context: ContextTypes
         ]
     )
 
-    context.user_data['current_store_name'] = update.callback_query.data
+    context.user_data['current_shop_name'] = update.callback_query.data
 
     await update.callback_query.answer()
     await update.callback_query.edit_message_text(
@@ -317,7 +318,7 @@ adding_item_conversation = ConversationHandler(
     ],
     states={
         ADD_MENU: [
-            CallbackQueryHandler(show_store_menu_in_add_item_menu, pattern='^Ushatava$|^Street Beat$|^OSKELLY$|^SuperStep$')
+            CallbackQueryHandler(show_store_menu_in_add_item_menu, pattern='^Ushatava$|^Street Beat$|^Red September$|^SuperStep$')
         ],
         STORE_MENU: [
             CallbackQueryHandler(show_add_item_menu, pattern='Back to add item menu'),

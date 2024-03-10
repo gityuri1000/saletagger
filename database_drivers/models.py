@@ -23,14 +23,16 @@ class AddedItem(Base):
     id = mapped_column(Integer, primary_key=True)
     user_name = mapped_column(String(255), nullable=False)
     item_url = mapped_column(String(255), nullable=False)
-    store = mapped_column(String(255), nullable=False)
+    shop = mapped_column(String(255), nullable=False)
 
 # Initialize tables if does not exist
-# from database_engine import async_engine
+if __name__ == "__main__":
 
-# async def create_tables(engine: AsyncEngine) -> None:
-#     async with engine.begin() as conn:
-#         await conn.run_sync(Base.metadata.create_all)
+    from database_engine import async_engine
 
-# asyncio.run(create_tables(async_engine))
+    async def create_tables(engine: AsyncEngine) -> None:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+
+    asyncio.run(create_tables(async_engine))
         
