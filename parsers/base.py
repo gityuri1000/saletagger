@@ -1,7 +1,6 @@
 import asyncio
 import sys
-sys.path.append("/home/yyy/Desktop/practis+git/app")
-# sys.path.append("/home/yyy/Desktop/practis+git/app/database_drivers")
+sys.path.append("/home/yyy/Desktop/app_with_git/app")
 from typing import Dict, List
 from sqlalchemy.ext.asyncio import AsyncEngine
 from database_drivers.cruds import get_query_from_parsed_item_table

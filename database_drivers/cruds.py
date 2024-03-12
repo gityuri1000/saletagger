@@ -1,4 +1,5 @@
 import asyncio
+import requests
 from typing import List, Dict
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession, AsyncSession
@@ -74,23 +75,31 @@ async def deactivate_rows_in_parsed_item_table(session: AsyncSession, current_ta
         if row not in new_table_data:
             stmt = (update(Item)
                 .where(Item.item_url == row['item_url'])
-                .values(is_active = False)
+                .values(is_active = 0)
             )
 
             await session.execute(stmt)
 
 async def activate_rows_in_parsed_item_table(session: AsyncSession, current_table_data: List[Dict], new_table_data: List[Dict], current_urls_list: List[str]) -> None:
-    #Write func to notify
+    need_message_urls = []
     await validate_input_data_item_table(data=new_table_data)    
 
     for row in new_table_data:
-        if row not in current_table_data and row['item_url'] in current_urls_list:
+        if row not in current_table_data and row["item_url"] in current_urls_list:
             stmt = (update(Item)
-                .where(Item.item_url == row['item_url'])
-                .values(is_active = True)
+                .where(Item.item_url == row["item_url"])
+                .values(is_active = 1)
             )
 
+            need_message_urls.append(row["item_url"])
             await session.execute(stmt)
+
+    list_of_need_message_rows = await get_query_from_added_users_item_table_with_list_of_urls(SessionLocal, need_message_urls)
+
+    print(list_of_need_message_rows)
+
+    for row in list_of_need_message_rows:
+        requests.get(f"https://api.telegram.org/bot{'6527820749:AAG1xmOjyVtGjsaGlGLu0TBCzXJgAzhdQbM'}/deleteMessage?chat_id={row['chat_id']}&text=Товар снова в продаже: {row['item_url']}")    
 
 async def update_parsed_item_table(session: AsyncSession, new_table_data: List[Dict]) -> None:
     async with session() as current_session:
@@ -130,9 +139,10 @@ async def set_data_to_added_users_item_table(session: AsyncSession, data: Dict) 
 
     async with session() as session:
         added_item = AddedItem(
-            user_name = data['user_name'],
-            item_url = data['item_url'],
-            shop = data['shop']
+            user_name = data["user_name"],
+            chat_id = data["chat_id"],
+            item_url = data["item_url"],
+            shop = data["shop"]
         )
 
         session.add(added_item)
@@ -140,7 +150,7 @@ async def set_data_to_added_users_item_table(session: AsyncSession, data: Dict) 
 
 async def get_query_from_added_users_item_table(session: AsyncSession) -> List[Dict]:
     result = []
-    async with AsyncSession(async_engine) as current_session:
+    async with session() as current_session:
         rows = select(AddedItem)
 
         for row in await current_session.scalars(rows):
@@ -151,7 +161,7 @@ async def get_query_from_added_users_item_table(session: AsyncSession) -> List[D
 
 async def get_query_from_added_users_item_table_with_username(session: AsyncSession, username: str) -> List[Dict]:
     result = []
-    async with AsyncSession(async_engine) as current_session:
+    async with session() as current_session:
         rows = select(AddedItem)
 
         for row in await current_session.scalars(rows):
@@ -161,8 +171,20 @@ async def get_query_from_added_users_item_table_with_username(session: AsyncSess
 
     return result
 
+async def get_query_from_added_users_item_table_with_list_of_urls(session: AsyncSession, list_of_urls: List[str]) -> List[Dict]:
+    result = []
+    async with session() as current_session:
+        rows = select(AddedItem)
+
+        for row in await current_session.scalars(rows):
+            if row.__dict__['user_name'] in list_of_urls:
+                row.__dict__.pop('_sa_instance_state')
+                result.append(row.__dict__)
+
+    return result
+
 async def delete_row_from_added_users_item_table(session: AsyncSession, user_name: str, item_url: str, shop: str) -> None:
-    async with AsyncSession(async_engine) as current_session:
+    async with session() as current_session:
         statement = select(AddedItem).filter_by(user_name=user_name, item_url=item_url, shop=shop)
         objs_to_delete = await current_session.scalars(statement)
         for obj_to_delete in objs_to_delete:

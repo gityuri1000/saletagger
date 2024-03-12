@@ -89,7 +89,8 @@ async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str
         data_list.append(
             {
                 "id": counter, 
-                "user_name": database_row["user_name"], 
+                "user_name": database_row["user_name"],
+                "chat_id": database_row["chat_id"],
                 "item_url": database_row["item_url"], 
                 "shop": database_row["shop"]
             }
@@ -240,7 +241,7 @@ async def add_item_in_add_item_menu(update: Update, context: ContextTypes.DEFAUL
     for row in current_table:
         row.pop('id')
 
-    data_to_add = {'user_name': update.message.from_user.username, 'item_url': update.message.text, 'shop': context.user_data['current_shop_name']}
+    data_to_add = {'user_name': update.message.from_user.username, 'chat_id': update.effective_message.chat_id, 'item_url': update.message.text, 'shop': context.user_data['current_shop_name']}
 
     if data_to_add not in current_table:
         await set_data_to_added_users_item_table(SessionLocal, data=data_to_add)

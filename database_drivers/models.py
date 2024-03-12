@@ -15,13 +15,14 @@ class Item(Base):
     item_url = mapped_column(String(255), nullable=False)
     shop = mapped_column(String(150), nullable=False)
     current_price = mapped_column(Integer, nullable=True)
-    is_active = mapped_column(Boolean, nullable=False)
+    is_active = mapped_column(Integer, nullable=False)
 
 class AddedItem(Base):
     __tablename__ = 'added_users_item_table'
     
     id = mapped_column(Integer, primary_key=True)
     user_name = mapped_column(String(255), nullable=False)
+    chat_id = mapped_column(Integer, nullable=False)
     item_url = mapped_column(String(255), nullable=False)
     shop = mapped_column(String(255), nullable=False)
 
