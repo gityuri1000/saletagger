@@ -60,7 +60,7 @@ class RogovParser(BaseParser):
         result: List[Dict] = self.__make_result_by_category_url("https://rogovshop.ru/dly-nego?page=")
 
         rest_categories = (
-            "https://rogovshop.ru/dly-nee?page=",
+            # "https://rogovshop.ru/dly-nee?page=",
             # "https://rogovshop.ru/baza?page=",
             # "https://rogovshop.ru/sale?page=",
             # "https://rogovshop.ru/nizhnee-belie?page=",

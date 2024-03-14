@@ -117,7 +117,7 @@ async def show_current_list_menu(update: Update, context: ContextTypes.DEFAULT_T
     context.user_data["current_list_message"], context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(context.user_data['current_user'])
 
     await update.callback_query.answer()
-    await update.callback_query.edit_message_text(text=context.user_data["current_list_message"], reply_markup=reply_keyboard, parse_mode=None)
+    await update.callback_query.edit_message_text(text=context.user_data["current_list_message"], reply_markup=reply_keyboard, parse_mode=None, disable_web_page_preview=True)
 
     return SHOW_MENU
     
@@ -137,13 +137,13 @@ async def show_current_list_delete_menu(update: Update, context: ContextTypes.DE
 
     if update.callback_query:
         await update.callback_query.answer()
-        await update.callback_query.edit_message_text(text=f'{context.user_data["current_list_message"]}\nВведите id вещи, которую вы хотите удалить, или нажмите "Назад" для выхода из режима удаления', reply_markup=reply_keyboard)
+        await update.callback_query.edit_message_text(text=f'{context.user_data["current_list_message"]}\nВведите id вещи, которую вы хотите удалить, или нажмите "Назад" для выхода из режима удаления', reply_markup=reply_keyboard, disable_web_page_preview=True)
         context.user_data["message_to_delete"] = update.callback_query.message.message_id ### проверить id или message_id
     
     elif update.message:
         context.user_data["current_list_message"], context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(context.user_data['current_user'])
         context.user_data["message_to_delete"] = update.message.id + 2 ### проверить id или message_id
-        await update.message.reply_text(text=f'{context.user_data["current_list_message"]}\nВведите id вещи, которую вы хотите удалить, или нажмите "Назад" для выхода из режима удаления', reply_markup=reply_keyboard)
+        await update.message.reply_text(text=f'{context.user_data["current_list_message"]}\nВведите id вещи, которую вы хотите удалить, или нажмите "Назад" для выхода из режима удаления', reply_markup=reply_keyboard, disable_web_page_preview=True)
 
     return DELETE_MENU
 
@@ -196,7 +196,7 @@ async def show_add_item_menu(update: Update, context: ContextTypes.DEFAULT_TYPE)
     reply_keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton('Ushatava', callback_data='Ushatava'),
+                InlineKeyboardButton('Rogov', callback_data='Rogov'),
                 InlineKeyboardButton('Street Beat', callback_data='Street Beat'),
             ],
             [
@@ -319,7 +319,7 @@ adding_item_conversation = ConversationHandler(
     ],
     states={
         ADD_MENU: [
-            CallbackQueryHandler(show_store_menu_in_add_item_menu, pattern='^Ushatava$|^Street Beat$|^Red September$|^SuperStep$')
+            CallbackQueryHandler(show_store_menu_in_add_item_menu, pattern='^Rogov$|^Street Beat$|^Red September$|^SuperStep$')
         ],
         STORE_MENU: [
             CallbackQueryHandler(show_add_item_menu, pattern='Back to add item menu'),
