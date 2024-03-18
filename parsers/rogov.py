@@ -1,5 +1,7 @@
 import sys
-from typing import Dict, List, Set
+import time
+import asyncio
+from typing import Dict, List, Set, Union
 sys.path.append("/home/yyy/Desktop/app_with_git/app")
 
 import requests
@@ -49,33 +51,121 @@ class RogovParser(BaseParser):
                 "is_active": 1
                 }
             )
-       
+
         return result
     
-    
-        
-    def get_data_from_web_site(self) -> List[Dict]:
+    def get_data_from_web_site(self) -> Dict[str, Dict]:
+        # start = time.time()
         print("Парсинг сайта: https://rogovshop.ru", "\n")
 
         result: List[Dict] = self.__make_result_by_category_url("https://rogovshop.ru/dly-nego?page=")
 
         rest_categories = (
-            # "https://rogovshop.ru/dly-nee?page=",
-            # "https://rogovshop.ru/baza?page=",
-            # "https://rogovshop.ru/sale?page=",
-            # "https://rogovshop.ru/nizhnee-belie?page=",
-            # "https://rogovshop.ru/trikotazh?page=",
-            # "https://rogovshop.ru/verkhniaia-odezhda?page=",
-            # "https://rogovshop.ru/gift-certificate?page=",
-
+            "https://rogovshop.ru/dly-nee?page=",
+            "https://rogovshop.ru/baza?page=",
+            "https://rogovshop.ru/sale?page=",
+            "https://rogovshop.ru/nizhnee-belie?page=",
+            "https://rogovshop.ru/trikotazh?page=",
+            "https://rogovshop.ru/verkhniaia-odezhda?page=",
+            "https://rogovshop.ru/gift-certificate?page="
         )
 
         for category in rest_categories:
             result.extend(self.__make_result_by_category_url(url=category))
         
-        return list({row_dict["item_url"]: row_dict for row_dict in result}.values())
+        # end = time.time()
+        # print(end - start)
+        return {row["item_url"]: row for row in result}
 
 
 if __name__ == "__main__":
     rogov = RogovParser()
-    rogov.update_data_in_parsed_items_table()
+    rogov.get_data_from_web_site()
+
+# class RogovAsync(BaseParser):
+    
+    # @staticmethod
+    # async def timer(method):
+    #     async def wrapper(link):
+    #         start = time.time()
+    #         method(link)
+    #         end = time.time()
+    #         process_time = end - start
+    #         print(process_time)
+    #     return wrapper
+
+#     async def __make_result_by_category_url(self, url: str) -> List[Dict]:
+#         page_number = 1
+#         result, items_name, items_url, items_price = list(), list(), list(), list()
+        
+#         while True:
+#             req = requests.get(url + str(page_number)).text
+#             soup_by_url = BeautifulSoup(req, "html.parser")
+
+#             if soup_by_url.find("main").find("div", class_="redisign").find("p") != None:
+#                 category_name = url.rstrip("page=")[:-1]
+#                 print(f"Завершение парсинга категории: {category_name}")
+#                 break
+
+#             result_for_names_and_urls: List = soup_by_url.find_all("div", class_="item-info__name")
+            
+#             for item_html_data in result_for_names_and_urls:
+#                 soup_by_page = BeautifulSoup(str(item_html_data), "html.parser")
+#                 items_url.append(soup_by_page.find("a")["href"])
+#                 items_name.append(soup_by_page.find("a").text.strip())
+
+#             result_for_prices: List = soup_by_url.find_all("div", class_="item-info__price")
+
+#             for item_html_data in (result_for_prices):
+#                 soup_by_page = BeautifulSoup(str(item_html_data), "html.parser")
+#                 price_to_add = re.sub("[^0-9]", "", soup_by_page.find("span").text)
+#                 price_to_add = 0 if price_to_add == "" else price_to_add
+#                 items_price.append(int(price_to_add))
+
+#             page_number += 1
+
+#         for i in range(len(items_url)):
+#             result.append(
+#                 {
+#                 "item_name": items_name[i], 
+#                 "item_url": items_url[i],
+#                 "shop": "Rogov",
+#                 "current_price": items_price[i],
+#                 "is_active": 1
+#                 }
+#             )
+       
+#         return result
+    
+#     async def get_data_from_web_site(self) -> Dict[str, Dict]:
+#         start = time.time()
+#         print("Парсинг сайта: https://rogovshop.ru", "\n")
+
+#         result: List[Dict] = await self.__make_result_by_category_url("https://rogovshop.ru/dly-nego?page=")
+
+#         rest_categories = (
+#             "https://rogovshop.ru/dly-nee?page=",
+#             "https://rogovshop.ru/baza?page=",
+#             "https://rogovshop.ru/sale?page=",
+#             "https://rogovshop.ru/nizhnee-belie?page=",
+#             "https://rogovshop.ru/trikotazh?page=",
+#             "https://rogovshop.ru/verkhniaia-odezhda?page=",
+#             "https://rogovshop.ru/gift-certificate?page=",
+
+#         )
+
+#         tasks = []
+
+#         for category in rest_categories:
+#             tasks.append(asyncio.create_task(self.__make_result_by_category_url(category)))
+
+#         for task in tasks:
+#             result.extend(await task)
+        
+#         end = time.time()
+#         print(end - start)
+#         return {row["item_url"]: row for row in result}
+    
+# if __name__ == "__main__":
+#     rogov = RogovAsync()
+#     asyncio.run(rogov.get_data_from_web_site())

@@ -1,15 +1,15 @@
-from typing import Union, List
+from typing import Union, List, Dict
 from pydantic import BaseModel
 
-class ItemInputRow(BaseModel):
+class ItemInputDictValue(BaseModel):
     item_name: str
     item_url: str
     shop: str
     current_price: Union[int, float]
     is_active: bool
 
-class ItemInputList(BaseModel):
-    data_to_input: List[ItemInputRow]
+class ItemInputDict(BaseModel):
+    data_to_input: Dict[str, ItemInputDictValue]
 
 class AddedItemDict(BaseModel):
     user_name: str
