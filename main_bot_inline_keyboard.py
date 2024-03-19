@@ -11,7 +11,7 @@ from database_drivers.cruds import get_query_from_added_users_item_table_with_us
 from database_drivers.cruds import delete_row_from_added_users_item_table
 from database_drivers.database_engine import SessionLocal
 
-TOKEN = '6527820749:AAG1xmOjyVtGjsaGlGLu0TBCzXJgAzhdQbM'
+TOKEN = 'TOKEN'
 
 
 MAIN_MENU, MAIN_MENU_FROM_OTHER_HANDLERS, MAIN_MENU_STOP_FROM_OTHER_HANDLERS, MAIN_MENU_ENTER_TO_ADD_MENU, MAIN_MENU_ENTER_TO_SHOW_MENU, MAIN_MENU_ENTER_TO_DEL_MENU = 10, 20, 30, 40, 50, 60

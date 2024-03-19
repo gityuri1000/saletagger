@@ -1,0 +1,43 @@
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: перезапустить приложение
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '6'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '6'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+ERROR:telegram.ext.Updater:Error while getting Updates: httpx.ConnectError: [Errno -3] Temporary failure in name resolution
+ERROR:telegram.ext.Application:An error was raised and an uncaught error was raised while handling the error with an error_handler.
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1820, in process_error
+    await callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 313, in error_handler
+    logger.error(f"Ошибка! Пользователь {update.effective_user.name}:", exc_info=context.error)
+AttributeError: 'NoneType' object has no attribute 'effective_user'
+ERROR:telegram.ext.Updater:Error while getting Updates: httpx.ConnectError: [Errno -3] Temporary failure in name resolution
+ERROR:telegram.ext.Application:An error was raised and an uncaught error was raised while handling the error with an error_handler.
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1820, in process_error
+    await callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 313, in error_handler
+    logger.error(f"Ошибка! Пользователь {update.effective_user.name}:", exc_info=context.error)
+AttributeError: 'NoneType' object has no attribute 'effective_user'
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: перезапустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: перезапустить приложение
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete

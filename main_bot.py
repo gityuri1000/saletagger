@@ -1,4 +1,6 @@
+import os
 import logging
+from dotenv import load_dotenv
 from typing import List, Dict, Tuple, Union
 from telegram.constants import ParseMode
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
@@ -12,9 +14,10 @@ from database_drivers.database_engine import SessionLocal
 logging.basicConfig(filename="logger.txt", level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
+load_dotenv("/home/yyy/Desktop/app_with_git/app/database_drivers/.env")
 logger = logging.getLogger(__name__)
 
-TOKEN = '6527820749:AAG1xmOjyVtGjsaGlGLu0TBCzXJgAzhdQbM'
+TOKEN = os.environ["TOKEN"]
 
 MAIN_MENU_CHOOSE, SHOW_MENU_CHOOSE, DELETE_MENU_CHOOSE = 1, 2, 3
 ADD_MENU_CHOOSE, ADD_URL_MENU_CHOOSE = 4, 5

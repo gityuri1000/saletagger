@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     POSTGRES_DB: str
     POSTGRES_HOST: str
     POSTGRES_PORT: int
+    TOKEN: str
 
     DATABASE_URI: Optional[PostgresDsn] = None
 
