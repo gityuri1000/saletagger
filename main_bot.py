@@ -1,5 +1,6 @@
 import logging
 from typing import List, Dict, Tuple, Union
+from telegram.constants import ParseMode
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from telegram.ext import ContextTypes, Application, CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler, filters
 from database_drivers.cruds import get_query_from_added_users_item_table_with_username
@@ -28,20 +29,27 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         one_time_keyboard=True
     )
 
-    if context.user_data.get("re_run"):
+    if context.user_data.get("re_run") and update.message.text == "/start":
         logger.info(f"Пользователь {update.effective_user.name}: перезапустить приложение")
+        await context.bot.send_message(
+            chat_id=update._effective_chat.id,
+            text="Кликните на /describe, чтобы посмотреть описание бота."
+        )
+    elif context.user_data.get("re_run"):
         await context.bot.send_message(
             chat_id=update._effective_chat.id,
             text="Кликните на /describe, чтобы посмотреть описание бота."
         )
     else:
         logger.info(f"Пользователь {update.effective_user.name}: запустить приложение")
-        describe_message = "Данный бот позволяет отслеживать изменение цен на товары\
-            без необходимости вручную проверять данные на сайтах.\nДобавьте вещь в ваш список \
-и получайте уведомления, если товар станет дешевле или появится в ассортименте."
+        context.user_data["describe_message"] = (
+            "Данный бот позволяет отслеживать изменение цен на товары, "
+            "без необходимости вручную проверять данные на сайтах. Добавьте вещь в ваш список "
+            "получайте уведомления, если товар станет дешевле или появится в ассортименте."
+        )
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=describe_message
+            text=context.user_data["describe_message"]
         )
 
     await context.bot.send_message(
@@ -51,6 +59,19 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     context.user_data["re_run"] = True
+    return MAIN_MENU_CHOOSE
+
+async def get_discribe_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Эта функция реагирует на команду '/describe'
+    и присылает сообщение с описанием функций бота.
+
+    """
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=context.user_data["describe_message"]
+    )
+
     return MAIN_MENU_CHOOSE
 
 async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str, List[Dict]]:
@@ -203,8 +224,10 @@ async def show_add_url_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if "/" not in update.message.text:
         context.user_data["current_shop_name"] = update.message.text
 
-    context.user_data["enter_url_text_message"] = f'Скопируйте ссылку на вашу вещь из магазина {context.user_data["links_to_shop"][context.user_data["current_shop_name"]]}\
-    в строку или нажмите "Назад" для выхода в меню выбора магазина.\n\nКликните на /help_video, чтобы посмотреть видео-гайд.'
+    context.user_data["enter_url_text_message"] = (
+        f'Скопируйте ссылку на вашу вещь из магазина {context.user_data["links_to_shop"][context.user_data["current_shop_name"]]}'
+        ' в строку или нажмите "Назад" для выхода в меню выбора магазина.\n\nКликните на /help_video, чтобы посмотреть видео-гайд.'
+    )
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -279,7 +302,7 @@ async def send_help_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await context.bot.send_video(
         chat_id=update.effective_chat.id,
-        video=open("media_content/video.mp4", "rb")
+        video=open("media_content/add_tutorial.mp4", "rb")
     )
 
     await show_add_url_menu(update, context)
@@ -294,7 +317,9 @@ main_menu_conversation_handler = ConversationHandler(
     states={
         MAIN_MENU_CHOOSE: [
             MessageHandler(filters.Regex("^Добавить вещь в список$"), show_add_item_menu),
-            MessageHandler(filters.Regex("^Показать текущий список$"), show_show_menu)        ],
+            MessageHandler(filters.Regex("^Показать текущий список$"), show_show_menu),
+            CommandHandler('describe', get_discribe_info)
+        ],
         SHOW_MENU_CHOOSE: [
             MessageHandler(filters.Regex("^Удалить вещь из списка$"), show_delete_menu),
             MessageHandler(filters.Regex("^Назад$"), back_from_show_menu_to_main_menu)
