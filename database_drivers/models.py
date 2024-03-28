@@ -16,18 +16,14 @@ class Item(Base):
     current_price = mapped_column(Integer, nullable=True)
     is_active = mapped_column(Integer, nullable=False)
 
-    added_item = relationship("AddedItem", back_populates="parsed_item")
-
 class AddedItem(Base):
     __tablename__ = 'added_users_item_table'
     
     id = mapped_column(Integer, primary_key=True)
-    item_url = mapped_column(ForeignKey("parsed_item_table.item_url"), nullable=False)
+    item_url = mapped_column(String(255), nullable=False)
     user_name = mapped_column(String(255), nullable=False)
     chat_id = mapped_column(Integer, nullable=False)
     shop = mapped_column(String(255), nullable=False)
-
-    parsed_item = relationship("Item", back_populates="added_item")
 
 # Initialize tables if does not exist
 if __name__ == "__main__":

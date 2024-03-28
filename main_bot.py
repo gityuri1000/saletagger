@@ -279,6 +279,8 @@ async def add_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ADD_URL_MENU_CHOOSE
 
 async def unrelevant_message_delete_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    logger.info(f"Пользователь {update.effective_user.name}: попытка удалить вещь из списка с сообщением '{update.message.text}'. Вещь не должна быть удалена")
+
     reply_keyboard = ReplyKeyboardMarkup(
         [
             [KeyboardButton("Назад")]
@@ -293,7 +295,7 @@ async def unrelevant_message_delete_item(update: Update, context: ContextTypes.D
     )
 
     await context.bot.send_message(
-        text=context.user_data["enter_url_text_message"],
+        text="Выберете действие:",
         chat_id=update.effective_chat.id,
         reply_markup=reply_keyboard
     )

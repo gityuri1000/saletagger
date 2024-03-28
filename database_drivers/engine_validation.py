@@ -27,8 +27,8 @@ class Settings(BaseSettings):
     database_uri_validator = field_validator("DATABASE_URI", mode="before")(database_uri_make_validator())
 
     model_config = SettingsConfigDict(
-        env_file="/home/yyy/Desktop/app_with_git/app/database_drivers/.env",
-        # env_file=".env",
+        # env_file="/home/yyy/Desktop/app_with_git/app/database_drivers/.env",
+        env_file="./database_drivers/.env",
         env_file_encoding="utf-8"
         )
 

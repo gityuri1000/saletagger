@@ -1,51 +1,154 @@
-INFO:telegram.ext.Application:Application started
-INFO:__main__:Пользователь @golovinovY: запустить приложение
 INFO:__main__:Пользователь @golovinovY: перезапустить приложение
-INFO:__main__:Пользователь @golovinovY: показать видео-гайд
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '6'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '6'
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-ERROR:telegram.ext.Updater:Error while getting Updates: httpx.ConnectError: [Errno -3] Temporary failure in name resolution
-ERROR:telegram.ext.Application:An error was raised and an uncaught error was raised while handling the error with an error_handler.
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop2'. Магазин: Rogov
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
 Traceback (most recent call last):
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1820, in process_error
-    await callback(update, context)
-  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 313, in error_handler
-    logger.error(f"Ошибка! Пользователь {update.effective_user.name}:", exc_info=context.error)
-AttributeError: 'NoneType' object has no attribute 'effective_user'
-ERROR:telegram.ext.Updater:Error while getting Updates: httpx.ConnectError: [Errno -3] Temporary failure in name resolution
-ERROR:telegram.ext.Application:An error was raised and an uncaught error was raised while handling the error with an error_handler.
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 546, in _prepare_and_execute
+    self._rows = await prepared_stmt.fetch(*parameters)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 241, in __bind_execute
+    data, status, _ = await self.__do_execute(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 230, in __do_execute
+    return await executor(protocol)
+  File "asyncpg/protocol/protocol.pyx", line 207, in bind_execute
+asyncpg.exceptions.ForeignKeyViolationError: insert or update on table "added_users_item_table" violates foreign key constraint "added_users_item_table_item_url_fkey"
+DETAIL:  Key (item_url)=(rogovshop2) is not present in table "parsed_item_table".
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1820, in process_error
-    await callback(update, context)
-  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 313, in error_handler
-    logger.error(f"Ошибка! Пользователь {update.effective_user.name}:", exc_info=context.error)
-AttributeError: 'NoneType' object has no attribute 'effective_user'
-INFO:__main__:Пользователь @golovinovY: показать видео-гайд
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: перезапустить приложение
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: перезапустить приложение
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 130, in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 195, in greenlet_spawn
+    value = await result
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 509, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.IntegrityError: <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "added_users_item_table" violates foreign key constraint "added_users_item_table_item_url_fkey"
+DETAIL:  Key (item_url)=(rogovshop2) is not present in table "parsed_item_table".
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 268, in add_item
+    await set_data_to_added_users_item_table(SessionLocal, data=data_to_add)
+  File "/home/yyy/Desktop/app_with_git/app/database_drivers/cruds.py", line 164, in set_data_to_added_users_item_table
+    await session.commit()
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/session.py", line 1011, in commit
+    await greenlet_spawn(self.sync_session.commit)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 202, in greenlet_spawn
+    result = context.switch(value)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1969, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4312, in flush
+    self._flush(objects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4447, in _flush
+    with util.safe_reraise():
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4408, in _flush
+    flush_context.execute()
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1227, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 517, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2344, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+    self._adapt_connection.await_(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 130, in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 195, in greenlet_spawn
+    value = await result
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 509, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "added_users_item_table" violates foreign key constraint "added_users_item_table_item_url_fkey"
+DETAIL:  Key (item_url)=(rogovshop2) is not present in table "parsed_item_table".
+[SQL: INSERT INTO added_users_item_table (item_url, user_name, chat_id, shop) VALUES ($1::VARCHAR, $2::VARCHAR, $3::INTEGER, $4::VARCHAR) RETURNING added_users_item_table.id]
+[parameters: ('rogovshop2', 'golovinovY', 1613704220, 'Rogov')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
 INFO:telegram.ext.Application:Application started
 INFO:__main__:Пользователь @golovinovY: запустить приложение
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1143'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop1'. Магазин: Rogov
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'redseptember2'. Магазин: Red September
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop222'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением 'Fghkk'
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete

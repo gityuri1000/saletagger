@@ -2,11 +2,13 @@ version: '3.7'
 
 services:
   
-  # bot:
-  #   build: .
-  #   container_name: telegram_bot
-  #   depends_on:
-  #     - db
+  bot:
+    build: .
+    container_name: telegram_bot
+    networks:
+      - main_network
+    env_file:
+      - "/home/yyy/Desktop/app_with_git/app/database_drivers/.env"
 
   db:
     image: "postgres:12.18-alpine3.18"
@@ -15,5 +17,10 @@ services:
     ports:
       - "8001:5432"
     shm_size: 128mb
+    networks:
+      - main_network
     env_file:
       - .env
+
+networks:
+  main_network:
