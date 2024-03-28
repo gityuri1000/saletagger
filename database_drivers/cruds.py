@@ -1,14 +1,14 @@
 import requests
 from typing import List, Dict, Union
 from sqlalchemy import select, update
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, AsyncSession, async_sessionmaker
 from database_drivers.models import Item, AddedItem
 from database_drivers.database_engine import async_engine
 #
 from database_drivers.schemas import ItemInputDict, AddedItemDict
 from database_drivers.database_engine import SessionLocal
 
-async def validate_input_data_item_table(data: List[Dict]) -> None:
+async def validate_input_data_item_table(data: Dict[str, Dict]) -> None:
     ItemInputDict(data_to_input=data)
 
 async def validate_input_added_users_item_table(data: Dict) -> None:
@@ -54,7 +54,7 @@ async def get_query_from_parsed_item_table(session: AsyncSession) -> Dict[str, D
     scalars = await session.scalars(rows)
     for row in scalars:
         row.__dict__.pop("_sa_instance_state")
-        row.__dict__.pop("id")
+        # row.__dict__.pop("id")
         result[row.__dict__["item_url"]] = row.__dict__
 
     return result
@@ -108,7 +108,7 @@ async def activate_rows_in_parsed_item_table(
     for row in list_of_need_message_rows:
         requests.get(f"https://api.telegram.org/bot{'6527820749:AAG1xmOjyVtGjsaGlGLu0TBCzXJgAzhdQbM'}/sendMessage?chat_id={row['chat_id']}&text=Товар снова в продаже: {row['item_url']}&disable_web_page_preview=true")    
 
-async def update_parsed_item_table(session: AsyncSession, new_table_data: Dict[str, Dict]) -> None:
+async def update_parsed_item_table(session: async_sessionmaker, new_table_data: Dict[str, Dict]) -> None:
     async with session() as current_session:
         #Получаем данные из текущей таблицы, удаляя при этом столбец "id"
         current_table = await get_query_from_parsed_item_table(current_session)

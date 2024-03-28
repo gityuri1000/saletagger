@@ -41,3 +41,11 @@ INFO:__main__:Пользователь @golovinovY: показать текущ�
 INFO:__main__:Пользователь @golovinovY: перезапустить приложение
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1143'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete

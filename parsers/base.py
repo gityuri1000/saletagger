@@ -2,27 +2,21 @@ import asyncio
 import time
 import sys
 sys.path.append("/home/yyy/Desktop/app_with_git/app")
+from abc import ABC, abstractmethod
 from typing import Dict, List, Union
 from sqlalchemy.ext.asyncio import AsyncEngine
 from database_drivers.cruds import get_query_from_parsed_item_table
 from database_drivers.cruds import set_data_to_parsed_item_table
 from database_drivers.cruds import update_parsed_item_table
 from database_drivers.cruds import set_data_to_added_users_item_table
-#
-from database_drivers.database_engine import SessionLocal, async_engine
+from database_drivers.database_engine import SessionLocal
 
-class BaseParser:
-    session = SessionLocal
+class BaseParser(ABC):
+    # @abstractmethod
+    def __make_result_by_category_url(self, url: str) -> List[Dict]:
+        pass
 
-    # def timer(cls, method):
-    #     def wrapper(link):
-    #         start = time.time()
-    #         method(link)
-    #         end = time.time()
-    #         process_time = end - start
-    #         print(process_time)
-    #     return wrapper
-
+    @abstractmethod
     def get_data_from_web_site(self) -> Dict[str, Dict]:
         pass
 

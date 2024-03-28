@@ -61,13 +61,13 @@ class RogovParser(BaseParser):
         result: List[Dict] = self.__make_result_by_category_url("https://rogovshop.ru/dly-nego?page=")
 
         rest_categories = (
-            "https://rogovshop.ru/dly-nee?page=",
-            "https://rogovshop.ru/baza?page=",
-            "https://rogovshop.ru/sale?page=",
-            "https://rogovshop.ru/nizhnee-belie?page=",
-            "https://rogovshop.ru/trikotazh?page=",
-            "https://rogovshop.ru/verkhniaia-odezhda?page=",
-            "https://rogovshop.ru/gift-certificate?page="
+            # "https://rogovshop.ru/dly-nee?page=",
+            # "https://rogovshop.ru/baza?page=",
+            # "https://rogovshop.ru/sale?page=",
+            # "https://rogovshop.ru/nizhnee-belie?page=",
+            # "https://rogovshop.ru/trikotazh?page=",
+            # "https://rogovshop.ru/verkhniaia-odezhda?page=",
+            # "https://rogovshop.ru/gift-certificate?page="
         )
 
         for category in rest_categories:
@@ -80,4 +80,4 @@ class RogovParser(BaseParser):
 
 if __name__ == "__main__":
     rogov = RogovParser()
-    rogov.get_data_from_web_site()
+    rogov.update_data_in_parsed_items_table()
