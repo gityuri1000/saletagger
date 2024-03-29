@@ -1,5 +1,4 @@
 import asyncio
-
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy import Integer, String, Boolean, ForeignKey, Null
 from sqlalchemy.orm import DeclarativeBase, mapped_column, relationship

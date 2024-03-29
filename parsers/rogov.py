@@ -7,8 +7,8 @@ import asyncio
 import requests
 from typing import Dict, List
 from bs4 import BeautifulSoup
-from parsers.base import BaseParser
-from schemas import WebsiteItemData
+from parsers.base import BaseParser, timer
+from parsers.parser_schemas import WebsiteItemData, ItemURL
 
 class RogovParser(BaseParser):
 
@@ -44,13 +44,6 @@ class RogovParser(BaseParser):
 
         for i in range(len(items_url)):
             result.append(
-                # {
-                # "item_name": items_name[i], 
-                # "item_url": items_url[i],
-                # "shop": "Rogov",
-                # "current_price": items_price[i],
-                # "is_active": 1
-                # }
                 WebsiteItemData(
                     item_name=items_name[i],
                     item_url=items_url[i],
@@ -62,7 +55,8 @@ class RogovParser(BaseParser):
 
         return result
     
-    def get_data_from_web_site(self) -> Dict[str, WebsiteItemData]:
+    @timer
+    def get_data_from_web_site(self) -> Dict[ItemURL, WebsiteItemData]:
         print("Парсинг сайта: https://rogovshop.ru", "\n")
 
         result: List[WebsiteItemData] = self._make_result_by_category_url("https://rogovshop.ru/dly-nego?page=")
@@ -80,13 +74,11 @@ class RogovParser(BaseParser):
         for category in rest_categories:
             result.extend(self._make_result_by_category_url(url=category))
         
-        # result = {row["item_url"]: row for row in result}
-        # return WebsiteData(**result)
-        result = {row.item_url: row for row in result}
+        result = {ItemURL(item_url=row.item_url): row for row in result}
         return result
 
 
 if __name__ == "__main__":
     rogov = RogovParser()
-    res = rogov.get_data_from_web_site()
-    print(res)
+    rogov.get_data_from_web_site()
+

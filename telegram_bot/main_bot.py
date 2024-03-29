@@ -4,7 +4,7 @@ sys.path.append("/home/yyy/Desktop/app_with_git/app")
 import os
 import logging
 from dotenv import load_dotenv
-from typing import List, Dict, Tuple
+from typing import List, Tuple
 from telegram.error import TimedOut
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ContextTypes, Application, CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler, filters
@@ -13,6 +13,7 @@ from database_drivers.cruds import get_query_from_added_users_item_table
 from database_drivers.cruds import set_data_to_added_users_item_table
 from database_drivers.cruds import delete_row_from_added_users_item_table
 from database_drivers.database_engine import SessionLocal
+from database_drivers.schemas import AddedItemRow
 
 logging.basicConfig(filename="logger.txt", level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -80,7 +81,7 @@ async def get_discribe_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return MAIN_MENU_CHOOSE
 
-async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str, List[Dict]]:
+async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str, List[AddedItemRow]]:
     """
     Эта функция является вспомогательной.
     Возвращает текущие данные из таблицы, в которою пользователь добавлял свои вещи, 
@@ -88,23 +89,22 @@ async def get_current_user_list_of_items_and_message(username: str) -> Tuple[str
 
     """
     
-    database_data = await get_query_from_added_users_item_table_with_username(SessionLocal, username)
+    database_data: List[AddedItemRow] = await get_query_from_added_users_item_table_with_username(SessionLocal, username)
 
     counter = 0
-    data_list = []
+    data_list: List[AddedItemRow] = []
     message_text = 'Текущий список:\n\n'
 
     for database_row in database_data:
         counter += 1
-        message_text += f'{counter}: {database_row["item_url"]}\n'
+        message_text += f'{counter}: {database_row.item_url}\n'
         data_list.append(
-            {
-                "id": counter, 
-                "user_name": database_row["user_name"],
-                "chat_id": database_row["chat_id"],
-                "item_url": database_row["item_url"], 
-                "shop": database_row["shop"]
-            }
+            AddedItemRow(
+                user_name=database_row.user_name,
+                chat_id=database_row.chat_id,
+                item_url=database_row.item_url,
+                shop=database_row.shop
+            )
         )
 
     return (message_text, data_list)
@@ -161,6 +161,7 @@ async def back_from_show_menu_to_main_menu(update: Update, context: ContextTypes
 
 
 async def delete_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
     reply_keyboard = ReplyKeyboardMarkup(
         [
             [KeyboardButton("Назад")]
@@ -170,9 +171,9 @@ async def delete_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     if 0 < int(update.message.text) <= len(context.user_data["current_user_list_of_items"]):
-        user_name = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["user_name"]
-        item_url = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["item_url"]
-        shop = context.user_data["current_user_list_of_items"][int(update.message.text)-1]["shop"]
+        user_name = context.user_data["current_user_list_of_items"][int(update.message.text)-1].user_name
+        item_url = context.user_data["current_user_list_of_items"][int(update.message.text)-1].item_url
+        shop = context.user_data["current_user_list_of_items"][int(update.message.text)-1].shop
 
         logger.info(f"Пользователь {update.effective_user.name}: удалить вещь из списка с сообщением '{update.message.text}'")
         await delete_row_from_added_users_item_table(SessionLocal, user_name, item_url, shop)
@@ -259,13 +260,16 @@ async def add_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
         one_time_keyboard=False
     )
 
-    current_table = await get_query_from_added_users_item_table(SessionLocal)
-    for row in current_table:
-        row.pop("id")
+    current_table: List[AddedItemRow] = await get_query_from_added_users_item_table(SessionLocal)
 
-    data_to_add = {"user_name": update.effective_user.name, "chat_id": update.effective_message.chat_id, "item_url": update.message.text, "shop": context.user_data["current_shop_name"]}
+    data_to_add = AddedItemRow(
+        user_name=update.effective_user.name,
+        chat_id=update.effective_message.chat_id,
+        item_url=update.message.text,
+        shop=context.user_data["current_shop_name"]
+    )
 
-    if ''.join(data_to_add["shop"].lower().split()) not in update.effective_message.text.lower().replace('-', ''):
+    if ''.join(data_to_add.shop.lower().split()) not in update.effective_message.text.lower().replace('-', ''):
         await context.bot.send_message(text="Ссылка должна принадлежать выбранному магазину", chat_id=update.effective_chat.id)
     elif data_to_add not in current_table:
         await set_data_to_added_users_item_table(SessionLocal, data=data_to_add)

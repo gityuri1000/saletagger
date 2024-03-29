@@ -1,8 +1,9 @@
+import sys
+sys.path.append("/home/yyy/Desktop/app_with_git/app")
+
 from typing import Any, Optional
 from pydantic import PostgresDsn, field_validator, ValidationInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict
-import sys
-sys.path.append("/home/yyy/Desktop/app_with_git/app")
 
 def database_uri_make_validator():
     def database_uri_validator(value: Any, info: ValidationInfo):
