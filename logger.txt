@@ -1,120 +1,391 @@
-INFO:__main__:Пользователь @golovinovY: перезапустить приложение
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop2'. Магазин: Rogov
 ERROR:__main__:Ошибка! Пользователь @golovinovY:
 Traceback (most recent call last):
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 546, in _prepare_and_execute
-    self._rows = await prepared_stmt.fetch(*parameters)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 176, in fetch
-    data = await self.__bind_execute(args, 0, timeout)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 241, in __bind_execute
-    data, status, _ = await self.__do_execute(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/asyncpg/prepared_stmt.py", line 230, in __do_execute
-    return await executor(protocol)
-  File "asyncpg/protocol/protocol.pyx", line 207, in bind_execute
-asyncpg.exceptions.ForeignKeyViolationError: insert or update on table "added_users_item_table" violates foreign key constraint "added_users_item_table_item_url_fkey"
-DETAIL:  Key (item_url)=(rogovshop2) is not present in table "parsed_item_table".
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 522, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/asyncpg/connection.py", line 636, in prepare
+    return await self._prepare(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/asyncpg/connection.py", line 654, in _prepare
+    stmt = await self._get_statement(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/asyncpg/connection.py", line 433, in _get_statement
+    statement = await self._protocol.prepare(
+  File "asyncpg/protocol/protocol.pyx", line 166, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "added_users_item_table" does not exist
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
     self.dialect.do_execute(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
     cursor.execute(statement, parameters)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
     self._adapt_connection.await_(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 130, in await_only
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 130, in await_only
     return current.driver.switch(awaitable)  # type: ignore[no-any-return]
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 195, in greenlet_spawn
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 195, in greenlet_spawn
     value = await result
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
     self._handle_exception(error)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 509, in _handle_exception
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 509, in _handle_exception
     self._adapt_connection._handle_exception(error)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
     raise translated_error from error
-sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.IntegrityError: <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "added_users_item_table" violates foreign key constraint "added_users_item_table_item_url_fkey"
-DETAIL:  Key (item_url)=(rogovshop2) is not present in table "parsed_item_table".
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "added_users_item_table" does not exist
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1264, in process_update
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_application.py", line 1264, in process_update
     await coroutine
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
     new_state: object = await handler.handle_update(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
     return await self.callback(update, context)
-  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 268, in add_item
-    await set_data_to_added_users_item_table(SessionLocal, data=data_to_add)
-  File "/home/yyy/Desktop/app_with_git/app/database_drivers/cruds.py", line 164, in set_data_to_added_users_item_table
-    await session.commit()
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/ext/asyncio/session.py", line 1011, in commit
-    await greenlet_spawn(self.sync_session.commit)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 202, in greenlet_spawn
-    result = context.switch(value)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1969, in commit
-    trans.commit(_to_root=True)
-  File "<string>", line 2, in commit
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
-    ret_value = fn(self, *arg, **kw)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1256, in commit
-    self._prepare_impl()
-  File "<string>", line 2, in _prepare_impl
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
-    ret_value = fn(self, *arg, **kw)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1231, in _prepare_impl
-    self.session.flush()
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4312, in flush
-    self._flush(objects)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4447, in _flush
-    with util.safe_reraise():
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4408, in _flush
-    flush_context.execute()
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
-    rec.execute(self)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
-    util.preloaded.orm_persistence.save_obj(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
-    _emit_insert_statements(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1227, in _emit_insert_statements
-    result = connection.execute(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 121, in show_show_menu
+    message_text, context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(update.effective_user.username)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 88, in get_current_user_list_of_items_and_message
+    database_data = await get_query_from_added_users_item_table_with_username(SessionLocal, username)
+  File "/home/yyy/Desktop/app_with_git/app/database_drivers/cruds.py", line 182, in get_query_from_added_users_item_table_with_username
+    for row in await current_session.scalars(rows):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py", line 572, in scalars
+    result = await self.execute(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py", line 455, in execute
+    result = await greenlet_spawn(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 200, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
     return meth(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 517, in _execute_on_connection
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 517, in _execute_on_connection
     return connection._execute_clauseelement(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
     ret = self._execute_context(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
     return self._exec_single_context(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
     self._handle_dbapi_exception(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2344, in _handle_dbapi_exception
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2344, in _handle_dbapi_exception
     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
     self.dialect.do_execute(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
     cursor.execute(statement, parameters)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 580, in execute
     self._adapt_connection.await_(
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 130, in await_only
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 130, in await_only
     return current.driver.switch(awaitable)  # type: ignore[no-any-return]
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 195, in greenlet_spawn
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 195, in greenlet_spawn
     value = await result
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 558, in _prepare_and_execute
     self._handle_exception(error)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 509, in _handle_exception
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 509, in _handle_exception
     self._adapt_connection._handle_exception(error)
-  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
     raise translated_error from error
-sqlalchemy.exc.IntegrityError: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "added_users_item_table" violates foreign key constraint "added_users_item_table_item_url_fkey"
-DETAIL:  Key (item_url)=(rogovshop2) is not present in table "parsed_item_table".
-[SQL: INSERT INTO added_users_item_table (item_url, user_name, chat_id, shop) VALUES ($1::VARCHAR, $2::VARCHAR, $3::INTEGER, $4::VARCHAR) RETURNING added_users_item_table.id]
-[parameters: ('rogovshop2', 'golovinovY', 1613704220, 'Rogov')]
-(Background on this error at: https://sqlalche.me/e/20/gkpj)
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "added_users_item_table" does not exist
+[SQL: SELECT added_users_item_table.id, added_users_item_table.item_url, added_users_item_table.user_name, added_users_item_table.chat_id, added_users_item_table.shop 
+FROM added_users_item_table]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: попытка удалить вещь из списка с сообщением 'Bfndk'. Вещь не должна быть удалена
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop2'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: попытка удалить вещь из списка с сообщением 'Bondsman'. Вещь не должна быть удалена
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 143, in handle_async_request
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 95, in handle_async_request
+    await self._send_request_body(**kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 166, in _send_request_body
+    await self._send_event(event, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 175, in _send_event
+    await self._network_stream.write(bytes_to_send, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 51, in write
+    await self._stream.send(item=buffer)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1559, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1646, in send
+    response = await self._send_handling_auth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1674, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1711, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1748, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 308, in send_help_video
+    await context.bot.send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 3064, in send_video
+    return await super().send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 542, in decorator
+    result = await func(self, *args, **kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 1932, in send_video
+    return await self._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 581, in _send_message
+    result = await super()._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 736, in _send_message
+    result = await self._post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 630, in _post
+    return await self._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 347, in _do_post
+    return await super()._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 658, in _do_post
+    return await request.post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 143, in handle_async_request
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 95, in handle_async_request
+    await self._send_request_body(**kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 166, in _send_request_body
+    await self._send_event(event, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 175, in _send_event
+    await self._network_stream.write(bytes_to_send, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 51, in write
+    await self._stream.send(item=buffer)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1559, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1646, in send
+    response = await self._send_handling_auth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1674, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1711, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1748, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 308, in send_help_video
+    await context.bot.send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 3064, in send_video
+    return await super().send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 542, in decorator
+    result = await func(self, *args, **kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 1932, in send_video
+    return await self._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 581, in _send_message
+    result = await super()._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 736, in _send_message
+    result = await self._post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 630, in _post
+    return await self._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 347, in _do_post
+    return await super()._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 658, in _do_post
+    return await request.post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 143, in handle_async_request
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 95, in handle_async_request
+    await self._send_request_body(**kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 166, in _send_request_body
+    await self._send_event(event, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 175, in _send_event
+    await self._network_stream.write(bytes_to_send, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 51, in write
+    await self._stream.send(item=buffer)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1559, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1646, in send
+    response = await self._send_handling_auth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1674, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1711, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1748, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 308, in send_help_video
+    await context.bot.send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 3064, in send_video
+    return await super().send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 542, in decorator
+    result = await func(self, *args, **kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 1932, in send_video
+    return await self._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 581, in _send_message
+    result = await super()._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 736, in _send_message
+    result = await self._post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 630, in _post
+    return await self._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 347, in _do_post
+    return await super()._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 658, in _do_post
+    return await request.post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
 INFO:telegram.ext.Application:Application started
@@ -122,33 +393,204 @@ INFO:__main__:Пользователь @golovinovY: запустить прил�
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
 INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop1'. Магазин: Rogov
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'redseptember2'. Магазин: Red September
-INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop222'. Магазин: Rogov
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
 INFO:telegram.ext.Application:Application started
 INFO:__main__:Пользователь @golovinovY: запустить приложение
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 143, in handle_async_request
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 95, in handle_async_request
+    await self._send_request_body(**kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 166, in _send_request_body
+    await self._send_event(event, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 175, in _send_event
+    await self._network_stream.write(bytes_to_send, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 51, in write
+    await self._stream.send(item=buffer)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1559, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1646, in send
+    response = await self._send_handling_auth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1674, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1711, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1748, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 309, in send_help_video
+    await context.bot.send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 3064, in send_video
+    return await super().send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 542, in decorator
+    result = await func(self, *args, **kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 1932, in send_video
+    return await self._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 581, in _send_message
+    result = await super()._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 736, in _send_message
+    result = await self._post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 630, in _post
+    return await self._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 347, in _do_post
+    return await super()._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 658, in _do_post
+    return await request.post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/connection.py", line 101, in handle_async_request
+    return await self._connection.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 143, in handle_async_request
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 95, in handle_async_request
+    await self._send_request_body(**kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 166, in _send_request_body
+    await self._send_event(event, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_async/http11.py", line 175, in _send_event
+    await self._network_stream.write(bytes_to_send, timeout=timeout)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_backends/anyio.py", line 51, in write
+    await self._stream.send(item=buffer)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1559, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1646, in send
+    response = await self._send_handling_auth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1674, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1711, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_client.py", line 1748, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/usr/lib/python3.9/contextlib.py", line 135, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/httpx/_transports/default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.WriteTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/main_bot.py", line 309, in send_help_video
+    await context.bot.send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 3064, in send_video
+    return await super().send_video(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 542, in decorator
+    result = await func(self, *args, **kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 1932, in send_video
+    return await self._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 581, in _send_message
+    result = await super()._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 736, in _send_message
+    result = await self._post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 630, in _post
+    return await self._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/ext/_extbot.py", line 347, in _do_post
+    return await super()._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/_bot.py", line 658, in _do_post
+    return await request.post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.9/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
 INFO:telegram.ext.Application:Application started
 INFO:__main__:Пользователь @golovinovY: запустить приложение
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '2'
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'Dndkdk'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop1'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop1'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'rogovshop2'. Магазин: Rogov
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:telegram.ext.Application:Application is stopping. This might take a moment.
-INFO:telegram.ext.Application:Application.stop() complete
-INFO:telegram.ext.Application:Application started
-INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: попытка удалить вещь из списка с сообщением 'G'. Вещь не должна быть удалена
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
-INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением 'Fghkk'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать видео-гайд
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete

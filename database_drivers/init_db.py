@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/home/yyy/Desktop/app_with_git/app")
+
 import asyncio
 from sqlalchemy.ext.asyncio import AsyncEngine
 from database_drivers.models import Base

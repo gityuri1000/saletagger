@@ -2,14 +2,6 @@ version: '3.7'
 
 services:
   
-  bot:
-    build: .
-    container_name: telegram_bot
-    networks:
-      - main_network
-    env_file:
-      - "/home/yyy/Desktop/app_with_git/app/database_drivers/.env"
-
   db:
     image: "postgres:12.18-alpine3.18"
     container_name: postgres-py
@@ -22,5 +14,13 @@ services:
     env_file:
       - .env
 
+  bot:
+    build: .
+    container_name: telegram_bot
+    networks:
+      - main_network
+    env_file:
+      - "/home/yyy/Desktop/app_with_git/app/database_drivers/.env"
+      
 networks:
   main_network:

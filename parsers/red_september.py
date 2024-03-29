@@ -1,16 +1,16 @@
 import sys
-import time
 sys.path.append("/home/yyy/Desktop/app_with_git/app")
 
-from typing import Dict, List, Set
-import requests
 import re
+import time
+import requests
+from typing import Dict, List
 from bs4 import BeautifulSoup
 from parsers.base import BaseParser
 
 class RedSeptemberParser(BaseParser):
 
-    def __make_result_by_category_url(self, url: str) -> List[Dict]:
+    def _make_result_by_category_url(self, url: str) -> List[Dict]:
         page_number = 1
         result, items_name, items_url, items_price = list(), list(), list(), list()
 
@@ -50,13 +50,12 @@ class RedSeptemberParser(BaseParser):
                 }
             )
 
-
         return result
     
     def get_data_from_web_site(self) -> List[Dict]:
         print("Парсинг сайта: https://redseptemberdesign.com", "\n")
 
-        result: List[Dict] = self.__make_result_by_category_url("https://redseptemberdesign.com/collection/muzhskoe?page=")
+        result: List[Dict] = self._make_result_by_category_url("https://redseptemberdesign.com/collection/muzhskoe?page=")
         
         rest_categories = (
             "https://redseptemberdesign.com/collection/novinki?page=",
@@ -86,7 +85,7 @@ class RedSeptemberParser(BaseParser):
         )
 
         for category in rest_categories:
-            result.extend(self.__make_result_by_category_url(url=category))
+            result.extend(self._make_result_by_category_url(url=category))
 
         return list({row_dict["item_url"]: row_dict for row_dict in result}.values())
         

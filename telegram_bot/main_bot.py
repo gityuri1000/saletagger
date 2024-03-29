@@ -1,9 +1,12 @@
+import sys
+sys.path.append("/home/yyy/Desktop/app_with_git/app")
+
 import os
 import logging
 from dotenv import load_dotenv
-from typing import List, Dict, Tuple, Union
-from telegram.constants import ParseMode
-from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from typing import List, Dict, Tuple
+from telegram.error import TimedOut
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ContextTypes, Application, CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler, filters
 from database_drivers.cruds import get_query_from_added_users_item_table_with_username
 from database_drivers.cruds import get_query_from_added_users_item_table
@@ -14,7 +17,7 @@ from database_drivers.database_engine import SessionLocal
 logging.basicConfig(filename="logger.txt", level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-load_dotenv("/home/yyy/Desktop/app_with_git/app/database_drivers/.env")
+load_dotenv("/home/yyy/Desktop/app_with_git/app/.env")
 logger = logging.getLogger(__name__)
 
 TOKEN = os.environ["TOKEN"]
@@ -118,7 +121,7 @@ async def show_show_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         one_time_keyboard=True
     )
 
-    message_text, context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(update.effective_user.username)
+    message_text, context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(update.effective_user.name)
 
     await context.bot.send_message(
         text=message_text,
@@ -178,7 +181,7 @@ async def delete_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Вы указали номер, которого не существует')
 
-    message_text, context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(update.effective_user.username)
+    message_text, context.user_data["current_user_list_of_items"] = await get_current_user_list_of_items_and_message(update.effective_user.name)
 
     await context.bot.send_message(
         text=message_text,
@@ -229,7 +232,7 @@ async def show_add_url_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data["enter_url_text_message"] = (
         f'Скопируйте ссылку на вашу вещь из магазина {context.user_data["links_to_shop"][context.user_data["current_shop_name"]]}'
-        ' в строку или нажмите "Назад" для выхода в меню выбора магазина.\n\nКликните на /help_video, чтобы посмотреть видео-гайд.'
+        ' в строку или нажмите "Назад" для выхода в меню выбора магазина.\n\nКликните на /help_video, чтобы посмотреть видео-гайд. Загрузка видео займет некоторое время.'
     )
 
     await context.bot.send_message(
@@ -260,7 +263,7 @@ async def add_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for row in current_table:
         row.pop("id")
 
-    data_to_add = {"user_name": update.message.from_user.username, "chat_id": update.effective_message.chat_id, "item_url": update.message.text, "shop": context.user_data["current_shop_name"]}
+    data_to_add = {"user_name": update.effective_user.name, "chat_id": update.effective_message.chat_id, "item_url": update.message.text, "shop": context.user_data["current_shop_name"]}
 
     if ''.join(data_to_add["shop"].lower().split()) not in update.effective_message.text.lower().replace('-', ''):
         await context.bot.send_message(text="Ссылка должна принадлежать выбранному магазину", chat_id=update.effective_chat.id)
@@ -295,7 +298,7 @@ async def unrelevant_message_delete_item(update: Update, context: ContextTypes.D
     )
 
     await context.bot.send_message(
-        text="Выберете действие:",
+        text='Введите номер вещи, которую вы хотите удалить, или нажмите "Назад" для выхода из режима удаления',
         chat_id=update.effective_chat.id,
         reply_markup=reply_keyboard
     )
@@ -316,6 +319,12 @@ async def send_help_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     logger.error(f"Ошибка! Пользователь {update.effective_user.name}:", exc_info=context.error)
+
+    if isinstance(context.error, TimedOut):
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="Упс, проблемы с сетью, повторите попытку позже."
+        )
 
 main_menu_conversation_handler = ConversationHandler(
     entry_points=[CommandHandler("start", start_command)],
