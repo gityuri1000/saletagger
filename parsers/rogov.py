@@ -80,5 +80,5 @@ class RogovParser(BaseParser):
 
 if __name__ == "__main__":
     rogov = RogovParser()
-    rogov.get_data_from_web_site()
+    rogov.update_data_in_parsed_items_table()
 

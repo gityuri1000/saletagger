@@ -26,8 +26,9 @@ class BaseParser(ABC):
 def timer(func: Callable):
     def wrapper(self, *args, **kwargs):
         start = time.time()
-        func(self)
+        result = func(self)
         print(f"Время выполнения программы: {time.time() - start}")
+        return result
     return wrapper
 
 

@@ -134,3 +134,6 @@ INFO:__main__:Пользователь @golovinovY: добавить вещь в
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete

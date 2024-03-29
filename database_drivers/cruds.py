@@ -53,8 +53,9 @@ async def get_query_from_parsed_item_table(session: AsyncSession) -> Dict[ItemUR
     scalars = await session.scalars(rows)
     for row in scalars:
         row.__dict__.pop("_sa_instance_state")
-        # row.__dict__.pop("id")
-        result[ItemURL(row.__dict__["item_url"])] = WebsiteItemData(**row.__dict__)
+        key = ItemURL(item_url=row.__dict__["item_url"])
+        value = WebsiteItemData(**row.__dict__)
+        result[key] = value
 
     return result
 
@@ -186,7 +187,7 @@ async def get_query_from_added_users_item_table_with_list_of_urls(session: Async
     rows = select(AddedItem)
     scalars = await session.scalars(rows)
     for row in scalars:
-        if ItemURL(row.__dict__['item_url']) in list_of_urls:
+        if ItemURL(item_url=row.__dict__['item_url']) in list_of_urls:
             row.__dict__.pop('_sa_instance_state')
             result.append(row.__dict__)
 
