@@ -1,5 +1,14 @@
-from typing import Union
+from typing import Union, Sequence, Annotated
 from pydantic import BaseModel
+
+class WebsiteURL(BaseModel):
+    url: str
+
+class WebsiteCategoryURL(BaseModel):
+    url: str
+
+class WebsiteCategories(BaseModel):
+    categories: Sequence[WebsiteCategoryURL]
 
 class ItemURL(BaseModel):
     item_url: str
@@ -13,3 +22,7 @@ class WebsiteItemData(BaseModel):
     shop: str
     current_price: Union[int, float]
     is_active: int
+
+ShopName = str
+
+

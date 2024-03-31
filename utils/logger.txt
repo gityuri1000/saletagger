@@ -1,0 +1,6 @@
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'redseptember2323'. Магазин: Red September
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete

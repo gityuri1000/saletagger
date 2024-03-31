@@ -1,5 +1,7 @@
 import sys
 sys.path.append("/home/yyy/Desktop/app_with_git/app")
+# Для Docker
+sys.path.append("/usr/src/myapp")
 
 from typing import Any, Optional
 from pydantic import PostgresDsn, field_validator, ValidationInfo
@@ -31,7 +33,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
         env_file="/home/yyy/Desktop/app_with_git/app/.env",
-        # env_file="/usr/src/telegram_bot/database_drivers/.env",
+        # env_file="/usr/src/myapp/.env",
         env_file_encoding="utf-8"
         )
 

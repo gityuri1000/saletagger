@@ -12,7 +12,7 @@ services:
     networks:
       - main_network
     env_file:
-      - .env
+      - ".env"
 
   bot:
     build: .
@@ -20,7 +20,12 @@ services:
     networks:
       - main_network
     env_file:
-      - "/home/yyy/Desktop/app_with_git/app/database_drivers/.env"
+      - ".env"
+    volumes:
+      - data:/var/lib/postgresql/data
       
 networks:
   main_network:
+
+volumes:
+  data:

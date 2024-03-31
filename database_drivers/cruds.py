@@ -1,5 +1,7 @@
 import sys
 sys.path.append("/home/yyy/Desktop/app_with_git/app")
+# Для Docker
+sys.path.append("/usr/src/myapp")
 
 import os
 import requests
@@ -9,7 +11,7 @@ from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession, AsyncSession, async_sessionmaker
 from database_drivers.models import Item, AddedItem
 from database_drivers.schemas import AddedItemRow
-from parsers.parser_schemas import WebsiteItemData, ItemURL
+from parsers.parser_schemas import WebsiteItemData, ItemURL, ShopName
 
 load_dotenv(dotenv_path="/home/yyy/Desktop/app_with_git/app/.env")
 TOKEN = os.environ["TOKEN"]
@@ -37,7 +39,7 @@ async def change_current_price_in_parsed_item_table(session: AsyncSession, data:
             .values(current_price=row.current_price)
         )
 
-        need_message_urls.append(ItemURL(row.item_url))
+        need_message_urls.append(ItemURL(item_url=row.item_url))
         await session.execute(stmt)
     
     list_of_need_message_rows: List[AddedItemRow] = await get_query_from_added_users_item_table_with_list_of_urls(session, need_message_urls)
@@ -63,7 +65,8 @@ async def deactivate_rows_in_parsed_item_table(
         session: AsyncSession,
         current_table_data: Dict[ItemURL, WebsiteItemData],
         new_table_data: Dict[ItemURL, WebsiteItemData],
-        list_of_active_rows: List[ItemURL]
+        list_of_active_rows: List[ItemURL],
+        parsed_shop: ShopName
         ) -> None:
     need_message_urls: List[ItemURL] = []
 
@@ -71,11 +74,13 @@ async def deactivate_rows_in_parsed_item_table(
         if row not in new_table_data and row in list_of_active_rows:
             stmt = (update(Item)
                 .where(Item.item_url == row.item_url)
+                .where(Item.shop == parsed_shop)
                 .values(is_active = 0)
             )
 
             need_message_urls.append(row)
             await session.execute(stmt)
+
 
     list_of_need_message_rows: List[AddedItemRow] = await get_query_from_added_users_item_table_with_list_of_urls(session, need_message_urls)
 
@@ -91,13 +96,13 @@ async def activate_rows_in_parsed_item_table(
     need_message_urls: List[ItemURL] = []
 
     for row in new_table_data.values():
-        if row not in current_table_data.values() and row.item_url in current_not_active_urls_list:
+        if row not in current_table_data.values() and ItemURL(item_url=row.item_url) in current_not_active_urls_list:
             stmt = (update(Item)
                 .where(Item.item_url == row.item_url)
                 .values(is_active = 1)
             )
 
-            need_message_urls.append(row.item_url)
+            need_message_urls.append(ItemURL(item_url=row.item_url))
             await session.execute(stmt)
 
     list_of_need_message_rows: List[AddedItemRow] = await get_query_from_added_users_item_table_with_list_of_urls(session, need_message_urls)
@@ -105,7 +110,7 @@ async def activate_rows_in_parsed_item_table(
     for row in list_of_need_message_rows:
         requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={row.chat_id}&text=Товар снова в продаже: {row.item_url}&disable_web_page_preview=true")    
 
-async def update_parsed_item_table(session: async_sessionmaker, new_table_data: Dict[ItemURL, WebsiteItemData]) -> None:
+async def update_parsed_item_table(session: async_sessionmaker, new_table_data: Dict[ItemURL, WebsiteItemData], parsed_shop: ShopName) -> None:
     async with session() as current_session:
         #Получаем данные из текущей таблицы, удаляя при этом столбец "id"
         current_table: Dict[ItemURL, WebsiteItemData] = await get_query_from_parsed_item_table(current_session)
@@ -130,7 +135,6 @@ async def update_parsed_item_table(session: async_sessionmaker, new_table_data: 
                 dict_to_add_in_current_table[row] = new_table_data[row]
             if new_table_data[row] not in current_table.values() and (row in list_off_current_table_active_urls or row in list_off_current_table_not_active_urls):
                 dict_to_change_price_in_current_table[row] = new_table_data[row]
-
         #В этом блоке добавляем новые строки в текущую таблицу или меняем цену текущих записей
         if dict_to_add_in_current_table:
             await set_data_to_parsed_item_table(current_session, dict_to_add_in_current_table)
@@ -139,7 +143,7 @@ async def update_parsed_item_table(session: async_sessionmaker, new_table_data: 
 
         #Деактивируем или активируем строки. Деактивация - товар удален с сайта. Активация - товар появился на сайте снова
         await activate_rows_in_parsed_item_table(current_session, current_table, new_table_data, list_off_current_table_not_active_urls)
-        await deactivate_rows_in_parsed_item_table(current_session, current_table, new_table_data, list_off_current_table_active_urls)
+        await deactivate_rows_in_parsed_item_table(current_session, current_table, new_table_data, list_off_current_table_active_urls, parsed_shop=parsed_shop)
 
         await current_session.commit()
 
@@ -189,11 +193,11 @@ async def get_query_from_added_users_item_table_with_list_of_urls(session: Async
     for row in scalars:
         if ItemURL(item_url=row.__dict__['item_url']) in list_of_urls:
             row.__dict__.pop('_sa_instance_state')
-            result.append(row.__dict__)
+            result.append(AddedItemRow(**row.__dict__))
 
     return result
 
-async def delete_row_from_added_users_item_table(session: AsyncSession, user_name: str, item_url: str, shop: str) -> None:
+async def delete_row_from_added_users_item_table(session: async_sessionmaker, user_name: str, item_url: str, shop: str) -> None:
     async with session() as current_session:
         statement = select(AddedItem).filter_by(user_name=user_name, item_url=item_url, shop=shop)
         objs_to_delete = await current_session.scalars(statement)

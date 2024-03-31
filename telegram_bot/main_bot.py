@@ -1,5 +1,7 @@
 import sys
 sys.path.append("/home/yyy/Desktop/app_with_git/app")
+# Для Docker
+sys.path.append("/usr/src/myapp")
 
 import os
 import logging
@@ -15,7 +17,7 @@ from database_drivers.cruds import delete_row_from_added_users_item_table
 from database_drivers.database_engine import SessionLocal
 from database_drivers.schemas import AddedItemRow
 
-logging.basicConfig(filename="logger.txt", level=logging.INFO)
+logging.basicConfig(filename="utils/logger.txt", level=logging.INFO)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 load_dotenv("/home/yyy/Desktop/app_with_git/app/.env")
