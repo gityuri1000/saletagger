@@ -10,7 +10,7 @@ import requests
 from typing import List
 from bs4 import BeautifulSoup
 from parsers.base import BaseParser
-from parsers.parser_schemas import WebsiteURL, WebsiteCategoryURL, WebsiteCategories, WebsiteItemData
+from parsers.parser_schemas import WebsiteURL, WebsiteCategoryURL, WebsiteCategories, WebsiteItemData, ShopName
 
 
 
@@ -67,36 +67,35 @@ class FableParser(BaseParser):
 fable_categories = WebsiteCategories(categories=
     (
         WebsiteCategoryURL(url="https://fablestore.ru/catalog/sale/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/pukhoviki_3/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/outerwear/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/zhilety_3/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/sweatshirts/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/knitted/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/blazers/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/shirts/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/pants/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/longsleeves/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/t-shirts/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/shorts/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/pukhoviki_3/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/outerwear/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/zhilety_3/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/sweatshirts/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/knitted/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/blazers/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/shirts/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/pants/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/longsleeves/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/t-shirts/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/man/shorts/?PAGEN_2="),
 
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/sale_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/pukhoviki_2/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/zhilety_4/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/sweatshirts_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/knitted_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/blazers_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/dresses_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/shirts_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/longsleeves_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/t-shirts_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/tops_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/skirts_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/pants_w/?PAGEN_2="),
-        WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/shorts_w/?PAGEN_2=")
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/sale_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/pukhoviki_2/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/zhilety_4/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/sweatshirts_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/knitted_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/blazers_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/dresses_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/shirts_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/longsleeves_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/t-shirts_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/tops_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/skirts_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/pants_w/?PAGEN_2="),
+        # WebsiteCategoryURL(url="https://fablestore.ru/catalog/woman/shorts_w/?PAGEN_2=")
     )
 )
 
 if __name__ == "__main__":
-    fable = FableParser(website_url=WebsiteURL(url="https://fablestore.ru/"), website_categories=fable_categories, website_name="Fable")
+    fable = FableParser(website_url=WebsiteURL.Fable, website_categories=fable_categories, website_name=ShopName.Fable)
     fable.update_data_in_parsed_items_table()
-    # print(fable.get_data_from_web_site(website_url=WebsiteURL(url="https://fablestore.ru/")))

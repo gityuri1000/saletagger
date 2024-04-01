@@ -8,7 +8,7 @@ import requests
 from typing import List
 from bs4 import BeautifulSoup
 from parsers.base import BaseParser
-from parsers.parser_schemas import WebsiteItemData, WebsiteURL, WebsiteCategories, WebsiteCategoryURL
+from parsers.parser_schemas import WebsiteItemData, WebsiteURL, WebsiteCategories, WebsiteCategoryURL, ShopName
 
 class RedSeptemberParser(BaseParser):
     def _make_result_by_category_url(self, website_category_url: WebsiteCategoryURL) -> List[WebsiteItemData]:
@@ -83,5 +83,5 @@ red_september_categories = WebsiteCategories(
 )
 
 if __name__ == "__main__":
-    red_september = RedSeptemberParser(website_url=WebsiteURL(url="redseptemberdesign.com"), website_categories=red_september_categories, website_name="Red September")
+    red_september = RedSeptemberParser(website_url=WebsiteURL.RedSeptember, website_categories=red_september_categories, website_name=ShopName.RedSeptember)
     red_september.update_data_in_parsed_items_table()

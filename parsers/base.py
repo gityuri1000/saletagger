@@ -25,6 +25,13 @@ def timer(func: Callable):
     return wrapper
 
 class BaseParser(ABC):
+    """
+    Класс, на основе которого строятся парсеры магазинов.
+    Чтобы создать новый парсер, наследуйте BaseParser и определите
+    метод _make_result_by_category_url, принимающий объект WebsiteCategories.
+
+    """
+
     def __init__(self, website_url: WebsiteURL, website_categories: WebsiteCategories, website_name: ShopName) -> None:
         self.website_categories = website_categories
         self.website_url = website_url
@@ -36,7 +43,7 @@ class BaseParser(ABC):
 
     @timer
     def get_data_from_web_site(self, website_url: WebsiteURL) -> Dict[ItemURL, WebsiteItemData]:
-        print(f"Парсинг сайта: {website_url.url}", "\n")
+        print(f"Парсинг сайта: {website_url.value}", "\n")
 
         result: List[WebsiteItemData] = self._make_result_by_category_url(self.website_categories.categories[0])
         print(f"Завершение парсинга категории: {self.website_categories.categories[0]}")

@@ -8,7 +8,7 @@ import requests
 from dotenv import load_dotenv
 from typing import List, Dict
 from sqlalchemy import select, update
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from database_drivers.models import Item, AddedItem
 from database_drivers.schemas import AddedItemRow
 from parsers.parser_schemas import WebsiteItemData, ItemURL, ShopName
@@ -74,7 +74,7 @@ async def deactivate_rows_in_parsed_item_table(
         if row not in new_table_data and row in list_of_active_rows:
             stmt = (update(Item)
                 .where(Item.item_url == row.item_url)
-                .where(Item.shop == parsed_shop)
+                .where(Item.shop == parsed_shop.value)
                 .values(is_active = 0)
             )
 

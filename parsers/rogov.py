@@ -8,7 +8,7 @@ import requests
 from typing import List
 from bs4 import BeautifulSoup
 from parsers.base import BaseParser, timer
-from parsers.parser_schemas import WebsiteItemData, WebsiteCategories, WebsiteCategoryURL, WebsiteURL
+from parsers.parser_schemas import WebsiteItemData, WebsiteCategories, WebsiteCategoryURL, WebsiteURL, ShopName
 
 class RogovParser(BaseParser):
 
@@ -46,7 +46,7 @@ class RogovParser(BaseParser):
                 WebsiteItemData(
                     item_name=items_name[i],
                     item_url=items_url[i],
-                    shop=self.website_name,
+                    shop=self.website_name.value,
                     current_price=items_price[i],
                     is_active=1
                 )
@@ -68,6 +68,6 @@ rogov_categories = WebsiteCategories(categories=
 )
 
 if __name__ == "__main__":
-    rogov = RogovParser(website_url=WebsiteURL(url="rogovshop.ru"), website_categories=rogov_categories, website_name="Rogov")
+    rogov = RogovParser(website_url=WebsiteURL.Rogov, website_categories=rogov_categories, website_name=ShopName.Rogov)
     rogov.update_data_in_parsed_items_table()
 
