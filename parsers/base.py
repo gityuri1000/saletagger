@@ -46,7 +46,7 @@ class BaseParser(ABC):
         print(f"Парсинг сайта: {website_url.value}", "\n")
 
         result: List[WebsiteItemData] = self._make_result_by_category_url(self.website_categories.categories[0])
-        print(f"Завершение парсинга категории: {self.website_categories.categories[0]}")
+        print(f"Завершение парсинга категории: {self.website_categories.categories[0].url}")
 
         for category in self.website_categories.categories[1:]:
             if category.url:

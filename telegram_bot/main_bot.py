@@ -4,6 +4,7 @@ sys.path.append("/home/yyy/Desktop/app_with_git/app")
 sys.path.append("/usr/src/myapp")
 
 import os
+import re
 import logging
 from dotenv import load_dotenv
 from typing import List, Tuple
@@ -252,6 +253,11 @@ async def back_from_add_menu_to_main_menu(update: Update, context: ContextTypes.
     return MAIN_MENU_CHOOSE
 
 async def add_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message.text:
+        url_from_message = update.message.text
+        url_from_message = re.sub("(&page=[0-9]+$)|(\\?page=[0-9]+$)", "", url_from_message)
+        
+
     logger.info(f"Пользователь {update.effective_user.name}: добавить вещь в список с сообщением '{update.message.text}'. Магазин: {context.user_data['current_shop_name']}")
 
     reply_keyboard = ReplyKeyboardMarkup(
@@ -267,7 +273,7 @@ async def add_item(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data_to_add = AddedItemRow(
         user_name=update.effective_user.name,
         chat_id=update.effective_message.chat_id,
-        item_url=update.message.text,
+        item_url=url_from_message,
         shop=context.user_data["current_shop_name"]
     )
 

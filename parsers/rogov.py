@@ -28,7 +28,7 @@ class RogovParser(BaseParser):
             
             for item_html_data in result_for_names_and_urls:
                 soup_by_page = BeautifulSoup(str(item_html_data), "html.parser")
-                items_url.append(soup_by_page.find("a")["href"])
+                items_url.append(re.sub("(&page=[0-9]+$)|(\\?page=[0-9]+$)", "", soup_by_page.find("a")["href"]))
                 items_name.append(soup_by_page.find("a").text.strip())
 
             result_for_prices: List = soup_by_url.find_all("div", class_="item-info__price")
@@ -57,13 +57,13 @@ class RogovParser(BaseParser):
 rogov_categories = WebsiteCategories(categories=
     (
         WebsiteCategoryURL(url="https://rogovshop.ru/dly-nego?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/dly-nee?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/baza?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/sale?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/nizhnee-belie?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/trikotazh?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/verkhniaia-odezhda?page="),
-        # WebsiteCategoryURL(url="https://rogovshop.ru/gift-certificate?page=")
+        WebsiteCategoryURL(url="https://rogovshop.ru/dly-nee?page="),
+        WebsiteCategoryURL(url="https://rogovshop.ru/baza?page="),
+        WebsiteCategoryURL(url="https://rogovshop.ru/sale?page="),
+        WebsiteCategoryURL(url="https://rogovshop.ru/nizhnee-belie?page="),
+        WebsiteCategoryURL(url="https://rogovshop.ru/trikotazh?page="),
+        WebsiteCategoryURL(url="https://rogovshop.ru/verkhniaia-odezhda?page="),
+        WebsiteCategoryURL(url="https://rogovshop.ru/gift-certificate?page=")
     )
 )
 

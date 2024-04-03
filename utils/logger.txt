@@ -4,3 +4,58 @@ INFO:__main__:Пользователь @golovinovY: показать текущ�
 INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'redseptember2323'. Магазин: Red September
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/telegram_bot/main_bot.py", line 257, in add_item
+    update.message.text = re.sub("(&page=[0-9]+$)|(\\?page=[0-9]+$)", "", update.message.text)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_telegramobject.py", line 173, in __setattr__
+    raise AttributeError(
+AttributeError: Attribute `text` of class `Message` can't be set!
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/telegram_bot/main_bot.py", line 257, in add_item
+    update.message.text = re.sub("(&page=[0-9]+$)|(\\?page=[0-9]+$)", "", update.message.text)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_telegramobject.py", line 173, in __setattr__
+    raise AttributeError(
+AttributeError: Attribute `text` of class `Message` can't be set!
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/telegram_bot/main_bot.py", line 258, in add_item
+    update.message.text = re.sub("(&page=[0-9]+$)|(\\?page=[0-9]+$)", "", update.message.text)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_telegramobject.py", line 173, in __setattr__
+    raise AttributeError(
+AttributeError: Attribute `text` of class `Message` can't be set!
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/index.php?route=product/product&product_id=1082&page=3'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
