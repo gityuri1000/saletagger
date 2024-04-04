@@ -23,6 +23,9 @@ class FableParser(BaseParser):
         result, items_name, items_url, items_price = list(), list(), list(), list()
 
         while True:
+            if page_number == 100:
+                raise CantStopCategoryParser("Невозможно остановить выполнение парсера! Бесконечная итерация!")
+
             req = requests.get(website_category_url.url + str(page_number)).text
             soup_by_url = BeautifulSoup(req, "html.parser")
 
@@ -36,9 +39,6 @@ class FableParser(BaseParser):
 
             if page_number != 1 and result_for_names_and_prices == stop_page:
                 break
-
-            if page_number == 100:
-                raise CantStopCategoryParser("Невозможно остановить выполнение парсера! Бесконечная итерация!")
 
             for item_html_data in result_for_names_and_prices:
                 soup_by_page = BeautifulSoup(str(item_html_data), "html.parser")

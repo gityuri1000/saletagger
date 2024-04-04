@@ -1,0 +1,144 @@
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: удалить вещь из списка с сообщением '1'
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1192'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1126'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1211'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1193'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1210'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1135'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=419'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=805'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/index.php?route=product/product&product_id=1034'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/index.php?route=product/product&product_id=1098&page=2'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/index.php?route=product/product&product_id=860&page=3'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/index.php?route=product/product&product_id=1082&page=3'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/index.php?route=product/product&product_id=1016&page=5'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/sweater-black?page=6'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/knitted/sviter_fable_of_office_biege/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/knitted/zhilet_fable_of_office_green/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/t-shirts/futbolka_fable_bsc_organic_black/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/blazers/pidzhak_fable_of_office_grey/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/pants/bryuki_fable_essense_dark_green/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/outerwear/trench_fable_essense_beige/'. Магазин: Fable
+ERROR:__main__:Ошибка! Пользователь @golovinovY:
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 67, in map_httpcore_exceptions
+    yield
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 371, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 216, in handle_async_request
+    raise exc from None
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_async/connection_pool.py", line 196, in handle_async_request
+    response = await connection.handle_async_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 99, in handle_async_request
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 76, in handle_async_request
+    stream = await self._connect(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_async/connection.py", line 122, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_backends/auto.py", line 30, in connect_tcp
+    return await self._backend.connect_tcp(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_backends/anyio.py", line 112, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 268, in do_request
+    res = await self._client.request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_client.py", line 1559, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_client.py", line 1646, in send
+    response = await self._send_handling_auth(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_client.py", line 1674, in _send_handling_auth
+    response = await self._send_handling_redirects(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_client.py", line 1711, in _send_handling_redirects
+    response = await self._send_single_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_client.py", line 1748, in _send_single_request
+    response = await transport.handle_async_request(request)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 370, in handle_async_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 84, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_application.py", line 1264, in process_update
+    await coroutine
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/conversationhandler.py", line 857, in handle_update
+    new_state: object = await handler.handle_update(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_handlers/basehandler.py", line 157, in handle_update
+    return await self.callback(update, context)
+  File "/home/yyy/Desktop/app_with_git/app/telegram_bot/main_bot.py", line 289, in add_item
+    await context.bot.send_message(text="Вещь добавлена", chat_id=update.effective_message.chat_id)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 2820, in send_message
+    return await super().send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_bot.py", line 542, in decorator
+    result = await func(self, *args, **kwargs)
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_bot.py", line 1018, in send_message
+    return await self._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 581, in _send_message
+    result = await super()._send_message(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_bot.py", line 736, in _send_message
+    result = await self._post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_bot.py", line 630, in _post
+    return await self._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/ext/_extbot.py", line 347, in _do_post
+    return await super()._do_post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/_bot.py", line 658, in _do_post
+    return await request.post(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 200, in post
+    result = await self._request_wrapper(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 340, in _request_wrapper
+    raise exc
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/request/_baserequest.py", line 330, in _request_wrapper
+    code, payload = await self.do_request(
+  File "/home/yyy/Desktop/app_with_git/venv/lib/python3.10/site-packages/telegram/request/_httpxrequest.py", line 285, in do_request
+    raise TimedOut from err
+telegram.error.TimedOut: Timed out
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/t-shirts/futbolka_fable_essense_white/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://fablestore.ru/catalog/man/outerwear/trench_fable_essense_beige/'. Магазин: Fable
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://redseptemberdesign.com/product/sviter-red-september-6a0a4b'. Магазин: Red September
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://redseptemberdesign.com/product/sviter-red-september-40a99b'. Магазин: Red September
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://redseptemberdesign.com/product/bryuki-red-september-d65bca'. Магазин: Red September
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://redseptemberdesign.com/product/bryuki-red-september-d645ed'. Магазин: Red September
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete

@@ -7,6 +7,7 @@ import re
 import requests
 from typing import List
 from bs4 import BeautifulSoup
+from py_collections.errors import CantFindItemsOnPage, CantStopCategoryParser
 from parsers.base import BaseParser, timer
 from parsers.parser_schemas import WebsiteItemData, WebsiteCategories, WebsiteCategoryURL, WebsiteURL, ShopName
 
@@ -17,6 +18,9 @@ class RogovParser(BaseParser):
         result, items_name, items_url, items_price = list(), list(), list(), list()
         
         while True:
+            if page_number == 100:
+                raise CantStopCategoryParser("Невозможно остановить выполнение парсера! Бесконечная итерация!")
+
             req = requests.get(website_category_url.url + str(page_number)).text
             soup_by_url = BeautifulSoup(req, "html.parser")
 
@@ -25,6 +29,9 @@ class RogovParser(BaseParser):
                 break
 
             result_for_names_and_urls: List = soup_by_url.find_all("div", class_="item-info__name")
+
+            if not result_for_names_and_urls:
+                raise CantFindItemsOnPage("Не найдены карточки с информацией, вероятно ошибка в BeautifulSoup.find!")
             
             for item_html_data in result_for_names_and_urls:
                 soup_by_page = BeautifulSoup(str(item_html_data), "html.parser")
