@@ -205,13 +205,18 @@ async def show_add_item_menu(update: Update, context: ContextTypes.DEFAULT_TYPE)
     reply_keyboard = ReplyKeyboardMarkup(
         [
             [KeyboardButton("Rogov"), KeyboardButton("Red September")],
+            [KeyboardButton("Fable")],
             [KeyboardButton("Назад")]
         ],
         resize_keyboard=True,
         one_time_keyboard=True
     )
 
-    context.user_data["links_to_shop"] = {"Rogov": "rogovshop.ru", "Red September": "redseptemberdesign.com"}
+    context.user_data["links_to_shop"] = {
+        "Rogov": "rogovshop.ru", 
+        "Red September": "redseptemberdesign.com",
+        "Fable": "fablestore.ru"
+    }
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -356,7 +361,7 @@ main_menu_conversation_handler = ConversationHandler(
             MessageHandler(filters.Regex("^(?!/start).+$"), unrelevant_message_delete_item)
         ],
         ADD_MENU_CHOOSE: [
-            MessageHandler(filters.Regex("^Rogov$|^Red September$"), show_add_url_menu),
+            MessageHandler(filters.Regex("^Rogov$|^Red September$|^Fable$"), show_add_url_menu),
             MessageHandler(filters.Regex("^Назад$"), back_from_add_menu_to_main_menu)
         ],
         ADD_URL_MENU_CHOOSE: [

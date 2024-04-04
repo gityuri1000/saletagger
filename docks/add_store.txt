@@ -1,0 +1,8 @@
+Чтобы корректно добавить магазин в интерфейс бота, необходимо в файле main_bot.py:
+
+1. В функции async def show_add_item_menu найти переменную reply_keyboard и
+добавить в нее класс KeyboardButton.
+2. В той же функции найти словарь context.user_data["links_to_shop"] и добавить
+в него данные в формате {"Название магазина": "ссылка на магазин"}.
+3. Найти ADD_MENU_CHOOSE в main_menu_conversation_handler и добавить паттерн
+в MessageHandler, который вызывает функцию show_add_url_menu.

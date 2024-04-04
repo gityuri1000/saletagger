@@ -9,6 +9,7 @@ import copy
 import requests
 from typing import List
 from bs4 import BeautifulSoup
+from py_collections.errors import CantFindItemsOnPage, CantStopCategoryParser
 from parsers.base import BaseParser
 from parsers.parser_schemas import WebsiteURL, WebsiteCategoryURL, WebsiteCategories, WebsiteItemData, ShopName
 
@@ -26,6 +27,9 @@ class FableParser(BaseParser):
             soup_by_url = BeautifulSoup(req, "html.parser")
 
             result_for_names_and_prices = soup_by_url.find_all("div", class_="product-card__content")
+            
+            if not result_for_names_and_prices:
+                raise CantFindItemsOnPage("Не найдены карточки с информацией, вероятно ошибка в BeautifulSoup.find!")
 
             if page_number == 1:
                 stop_page = result_for_names_and_prices
@@ -34,8 +38,7 @@ class FableParser(BaseParser):
                 break
 
             if page_number == 100:
-                print("break 100!")
-                break
+                raise CantStopCategoryParser("Невозможно остановить выполнение парсера! Бесконечная итерация!")
 
             for item_html_data in result_for_names_and_prices:
                 soup_by_page = BeautifulSoup(str(item_html_data), "html.parser")
@@ -127,3 +130,5 @@ fable_categories = WebsiteCategories(categories=
 if __name__ == "__main__":
     fable = FableParser(website_url=WebsiteURL.Fable, website_categories=fable_categories, website_name=ShopName.Fable)
     fable.update_data_in_parsed_items_table()
+
+    print(sys.getsizeof(fable._make_result_by_category_url))
