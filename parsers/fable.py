@@ -131,4 +131,3 @@ if __name__ == "__main__":
     fable = FableParser(website_url=WebsiteURL.Fable, website_categories=fable_categories, website_name=ShopName.Fable)
     fable.update_data_in_parsed_items_table()
 
-    print(sys.getsizeof(fable._make_result_by_category_url))

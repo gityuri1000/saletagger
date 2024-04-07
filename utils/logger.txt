@@ -142,3 +142,33 @@ INFO:__main__:Пользователь @golovinovY: показать текущ�
 INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
 INFO:telegram.ext.Application:Application is stopping. This might take a moment.
 INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1179'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1179'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1212'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'https://rogovshop.ru/dly-nego?product_id=1212'. Магазин: Rogov
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'www.rogovshoptest.com'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'www.rogovshoptest.com'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: добавить вещь в список с сообщением 'www.rogovshoptest1.com'. Магазин: Rogov
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete
+INFO:telegram.ext.Application:Application started
+INFO:__main__:Пользователь @golovinovY: запустить приложение
+INFO:__main__:Пользователь @golovinovY: показать текущий список вещей
+INFO:telegram.ext.Application:Application is stopping. This might take a moment.
+INFO:telegram.ext.Application:Application.stop() complete

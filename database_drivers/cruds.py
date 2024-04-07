@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database_drivers.models import Item, AddedItem
 from database_drivers.schemas import AddedItemRow
 from parsers.parser_schemas import WebsiteItemData, ItemURL, ShopName
+from telegram_bot.telegram_api import send_changed_price_message, send_again_in_stock_message, send_del_item_message
 
 load_dotenv(dotenv_path="/home/yyy/Desktop/app_with_git/app/.env")
 TOKEN = os.environ["TOKEN"]
@@ -29,7 +30,7 @@ async def update_parsed_item_table(session: AsyncSession, new_table_data: Dict[I
         #Если данные из текущей таблицы и новые данные равны, то изменения не требуются
         if current_table == new_table_data:
             return 
-        
+
         #В этом блоке происходит добавление в предварительные листы добавления в таблицу и изменения цены
         dict_to_add_in_current_table: Dict[ItemURL, WebsiteItemData] = {}
         dict_to_change_price_in_current_table: Dict[ItemURL, WebsiteItemData] = {}
@@ -39,7 +40,7 @@ async def update_parsed_item_table(session: AsyncSession, new_table_data: Dict[I
                 continue
             if new_table_data[row] not in current_table.values() and row not in list_off_current_table_active_urls and row not in list_off_current_table_not_active_urls:
                 dict_to_add_in_current_table[row] = new_table_data[row]
-            if new_table_data[row] not in current_table.values() and (row in list_off_current_table_active_urls or row in list_off_current_table_not_active_urls):
+            if current_table.get(row, None) and new_table_data[row].current_price != current_table.get(row, None).current_price and (row in list_off_current_table_active_urls or row in list_off_current_table_not_active_urls):
                 dict_to_change_price_in_current_table[row] = new_table_data[row]
 
         #В этом блоке добавляем новые строки в текущую таблицу или меняем цену текущих записей
@@ -82,10 +83,12 @@ async def change_current_price_in_parsed_item_table(session: AsyncSession, data:
     
     list_of_need_message_rows: List[AddedItemRow] = await get_query_from_added_users_item_table_with_list_of_urls(session, need_message_urls)
     
+    chat_id = None
+    if list_of_need_message_rows:
+        chat_id = list_of_need_message_rows[0].chat_id
 
-    for row in list_of_need_message_rows:
-        requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={row.chat_id}&text=Изменилась цена на товар: {row.item_url}&disable_web_page_preview=true")
-        
+    return send_changed_price_message(token=TOKEN, chat_id=chat_id, needs_message_urls=list_of_need_message_rows)
+
 async def get_query_from_parsed_item_table(session: AsyncSession) -> Dict[ItemURL, WebsiteItemData]:
     result = {}
 
@@ -121,11 +124,13 @@ async def deactivate_rows_in_parsed_item_table(
 
             await session.execute(stmt)
 
-
     list_of_need_message_rows: List[AddedItemRow] = await get_query_from_added_users_item_table_with_list_of_urls(session, need_message_urls)
 
-    for row in list_of_need_message_rows:
-        requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={row.chat_id}&text=Товар убран из продажи: {row.item_url}&disable_web_page_preview=true")     
+    chat_id = None
+    if list_of_need_message_rows:
+        chat_id = list_of_need_message_rows[0].chat_id
+
+    return send_del_item_message(token=TOKEN, chat_id=chat_id, needs_message_urls=list_of_need_message_rows)
 
 async def activate_rows_in_parsed_item_table(
         session: AsyncSession,
@@ -146,12 +151,16 @@ async def activate_rows_in_parsed_item_table(
             if row.shop == parsed_shop.value:
                 need_message_urls.append(ItemURL(item_url=row.item_url))
 
+
             await session.execute(stmt)
 
     list_of_need_message_rows: List[AddedItemRow] = await get_query_from_added_users_item_table_with_list_of_urls(session, need_message_urls)
 
-    for row in list_of_need_message_rows:
-        requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={row.chat_id}&text=Товар снова в продаже: {row.item_url}&disable_web_page_preview=true")    
+    chat_id = None
+    if list_of_need_message_rows:
+        chat_id = list_of_need_message_rows[0].chat_id
+
+    return send_again_in_stock_message(token=TOKEN, chat_id=chat_id, needs_message_urls=list_of_need_message_rows)
 
 async def set_data_to_added_users_item_table(session: AsyncSession, data: AddedItemRow) -> None:
 
